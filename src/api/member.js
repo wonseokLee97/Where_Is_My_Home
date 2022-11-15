@@ -25,9 +25,7 @@ export default {
 
   mutations: {
     SET_LOGIN_USER(state, user) {
-      console.log(state.loginUser);
       state.userid = user.userId;
-      console.log(state.loginUser);
     },
     LOGOUT(state) {
       state.userid = null;

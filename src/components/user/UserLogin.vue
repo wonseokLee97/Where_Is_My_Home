@@ -55,8 +55,11 @@ export default {
     confirm() {
       console.log(this.user);
       this.$store.dispatch("setLoginUser", this.user);
+      this.$router.push({ name: "home" });
+
     },
     moveJoin() {
+    
       this.$router.push({ name: "join" });
     },
   },
