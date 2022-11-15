@@ -36,17 +36,13 @@ export default {
   },
   computed: {
     ...mapState({
-<<<<<<< HEAD
       board: (state) => state.board,
-    }),
-=======
       article: (state) => state.board.article,
     }),
     message() {
       if (this.article.content) return this.article.content.split("\n").join("<br>");
       return "";
     },
->>>>>>> b6dbfd0390fb234d89c35f745ff82dedc378ab53
   },
 };
 </script>

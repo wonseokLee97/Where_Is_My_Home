@@ -5,31 +5,32 @@ export default {
     userid: null,
   }),
 
-  mutations: {
-    SET_LOGIN_USER(state, userid) {
-      state.userid = userid;
-    },
-  },
-
   actions: {
     setLoginUser({ commit }, user) {
-      console.log(user);
-
       http
-        .post(`/user/login`, null, {
-          params: { user },
-        })
+        .post(`/user/login`, user)
         .then(({ data }) => {
-          if (data === "fail") {
-            console.log("로그인 실패!");
-          } else {
+          if (data) {
             console.log("로그인 성공!");
-            commit("SET_LOGIN_USER", data);
+            commit("SET_LOGIN_USER", user);
+          } else {
+            console.log("로그인 실패!");
           }
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+  },
+
+  mutations: {
+    SET_LOGIN_USER(state, user) {
+      console.log(state.loginUser);
+      state.userid = user.userId;
+      console.log(state.loginUser);
+    },
+    LOGOUT(state) {
+      state.userid = null;
     },
   },
 };

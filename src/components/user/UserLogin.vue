@@ -14,7 +14,7 @@
             <b-form-group label="아이디:" label-for="userid">
               <b-form-input
                 id="userid"
-                v-model="userid"
+                v-model="user.userId"
                 required
                 placeholder="아이디 입력...."
                 @keyup.enter="confirm"
@@ -24,7 +24,7 @@
               <b-form-input
                 type="password"
                 id="userpwd"
-                v-model="userpwd"
+                v-model="user.userPwd"
                 required
                 placeholder="비밀번호 입력...."
                 @keyup.enter="confirm"
@@ -46,13 +46,14 @@ export default {
     return {
       isLoginError: false,
       user: {
-        userid: null,
-        userpwd: null,
+        userId: null,
+        userPwd: null,
       },
     };
   },
   methods: {
     confirm() {
+      console.log(this.user);
       this.$store.dispatch("setLoginUser", this.user);
     },
     moveJoin() {

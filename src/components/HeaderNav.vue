@@ -7,8 +7,8 @@
         <b-navbar-nav>
           <b-nav-item href="/board">Q&A</b-nav-item>
           <b-nav-item href="/about">About</b-nav-item>
-          <b-nav-item href="/login">Login</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <b-nav-item href="#" v-if="getUser" @click="logout">Logout</b-nav-item>
+          <b-nav-item href="/login" v-else>Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -16,8 +16,30 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "HeaderNav",
+  methods: {
+    logout() {
+      // mutation 호출
+      console.log("logout");
+      this.$store.commit("LOGOUT");
+    },
+  },
+  computed: {
+    ...mapState({
+      userid: (state) => state.member.userid,
+    }),
+    
+    getUser() {
+      console.log(this.userid+"!!");
+      if (this.userid) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
 };
 </script>
 
