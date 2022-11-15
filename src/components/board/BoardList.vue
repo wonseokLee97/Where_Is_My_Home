@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <b-table responsive :items="board.articles" :fields="fields">
+      <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">
           <a :href="`/board/view/${data.item.articleno}`">{{ data.value }}</a>
         </template>
@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     ...mapState({
-      board: (state) => state.board,
+      articles: (state) => state.board.articles,
     }),
   },
 };
