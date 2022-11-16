@@ -1,23 +1,21 @@
 <template>
   <div>
-    <b-form @submit="onSubmit">
-      <b-input-group>
-        <b-form-textarea
-          id="comment"
-          type="text"
-          placeholder="댓글을 입력하세요"
-          ref="comment"
-          v-model="comment.content"
-        >
-        </b-form-textarea>
-        <b-input-group-append>
-          <b-button type="submit" variant="outline-secondary">등록</b-button>
-          <b-input-group-text>
-            <b-icon icon="x" />
-          </b-input-group-text>
-        </b-input-group-append>
-      </b-input-group>
-    </b-form>
+    <b-input-group>
+      <b-form-textarea
+        id="comment"
+        type="text"
+        placeholder="댓글을 입력하세요"
+        ref="comment"
+        v-model="comment.content"
+      >
+      </b-form-textarea>
+      <b-input-group-append>
+        <b-button @click="modify" variant="outline-secondary">등록</b-button>
+        <b-button @click="cancle">
+          <b-icon icon="x" />
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
   </div>
 </template>
 
@@ -44,7 +42,7 @@ export default {
     }
   },
   methods: {
-    onSubmit(event) {
+    modify(event) {
       event.preventDefault();
 
       let err = true;
@@ -65,13 +63,16 @@ export default {
         this.comment.content = "";
       }
     },
+    cancle() {
+      this.$store.commit("SET_MODIFYNO", -1);
+    },
   },
   computed: {
     ...mapGetters(["article", "userid"]),
   },
   beforeDestroy() {
     this.$store.commit("SET_MODIFYNO", -1);
-  }
+  },
 };
 </script>
 

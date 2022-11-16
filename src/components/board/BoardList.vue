@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div>
-      <b-button variant="outline-primary" to="/board/write">글쓰기</b-button>
-      <board-serach></board-serach>
-      <br />
-    </div>
+    <board-serach></board-serach>
+    <br />
     <div>
       <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">
@@ -12,6 +9,9 @@
         </template>
       </b-table>
     </div>
+    <b-col class="text-left">
+      <b-button variant="dark" to="/board/write" class="m-1">글쓰기</b-button>
+    </b-col>
   </div>
 </template>
 
