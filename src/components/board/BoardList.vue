@@ -3,9 +3,7 @@
     <div>
       <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">
-          <router-link :to="`/board/view/${data.item.articleno}`" :comments="articles.comments">{{
-            data.value
-          }}</router-link>
+          <router-link :to="`/board/view/${data.item.articleno}`">{{ data.value }}</router-link>
         </template>
       </b-table>
     </div>

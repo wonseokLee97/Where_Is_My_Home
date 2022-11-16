@@ -24,12 +24,17 @@
         </b-card>
       </b-col>
     </b-row>
+
+    <board-comment :comments="article.comments"></board-comment>
   </b-container>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import BoardComment from "./BoardComment.vue";
+
 export default {
+  components: { BoardComment },
   name: "BoardView",
   created() {
     this.$store.dispatch("getArticle", this.$route.params.articleno);
