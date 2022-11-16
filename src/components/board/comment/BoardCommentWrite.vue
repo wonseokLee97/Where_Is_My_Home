@@ -50,16 +50,8 @@ export default {
       else {
         this.comment.userid = this.userid;
         this.comment.articleno = this.article.articleno;
-        // console.log(this.comment.userid);
-        // console.log(this.comment.content);
-        // console.log(this.comment.articleno);
         this.$store.dispatch("writeComment", this.comment);
-        this.refreshAll();
-        // this.$router.push("/board/view/" + this.article.articleno);
       }
-    },
-    refreshAll() {
-      this.$router.go();
     },
   },
   computed: {

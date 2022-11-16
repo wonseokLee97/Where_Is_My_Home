@@ -59,7 +59,7 @@ export default {
       });
     },
     deleteArticle() {
-      if (confirm("정말로 삭제?")) {
+      if (confirm("삭제하시겠습니까?")) {
         this.$router.replace({
           name: "boarddelete",
           params: { articleno: this.article.articleno },

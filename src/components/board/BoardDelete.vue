@@ -12,17 +12,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   name: "BoardDelete",
   created() {
-    this.$store.dispatch("deleteArticle", this.$route.params.articleno).then(() => {
-      alert(this.msg);
-      this.$router.push({ name: "boardlist" });
-    });
-  },
-  computed: {
-    ...mapGetters(["msg"]),
+    this.$store.dispatch("deleteArticle", this.$route.params.articleno);
   },
 };
 </script>

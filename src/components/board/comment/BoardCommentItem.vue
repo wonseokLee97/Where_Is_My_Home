@@ -34,11 +34,7 @@ export default {
       // this.$store.dispatch("moveModifyComment", this.article);
     },
     deleteComment() {
-      this.$store.dispatch("deleteComment", this.comment.commentno);
-      this.refreshAll();
-    },
-    refreshAll() {
-      this.$router.go();
+      this.$store.dispatch("deleteComment", this.comment);
     },
   },
   computed: {
