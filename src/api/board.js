@@ -41,34 +41,41 @@ export default {
       http
         .get(`/board`)
         .then(({ data }) => {
+          console.log(data);
           commit("SET_ARTICLE_LIST", data);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    searchTitle({ commit }, subject) {
+
+    // =========== 검색 =============
+    searchTitle({ store }, subject) {
+      alert("searchTitle!")
       http
         .get(`/board/title/${subject}`)
         .then(({ data }) => {
-          commit("SET_ARTICLE", data);
-          router.push({ name: "boardlist" });
+          console.log(data+"111");
+          store.commit("SET_ARTICLE_LIST", data);
+          store.dispatch({ name: "boardlist" });
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    searchWriter({ commit }, writer) {
+    searchWriter({ store }, writer) {
       http
         .get(`/board/writer/${writer}`)
         .then(({ data }) => {
-          commit("SET_ARTICLE", data);
-          router.push({ name: "boardlist" });
+          console.log(data);
+          store.commit("SET_ARTICLE_LIST", data);
+          store.dispatch({ name: "boardlist" });
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    // =============================
     writeArticle(_, article) {
       http
         .post(`/board`, article)

@@ -59,7 +59,7 @@ export default {
       if (!err) alert(msg);
       else {
         if (this.selected == "제목") {
-          this.$store.dispatch("searchArticle", this.content);
+          this.$store.dispatch("searchTitle", this.content);
         } else {
           this.$store.dispatch("searchWriter", this.content);
         }
