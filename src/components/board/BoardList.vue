@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-button variant="outline-primary" to="/board/write">글쓰기</b-button>
+    <div>
+      <b-button variant="outline-primary" to="/board/write">글쓰기</b-button>
+      <board-serach></board-serach>
+      <br />
+    </div>
     <div>
       <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">
@@ -13,6 +17,7 @@
 
 <script>
 import { mapState } from "vuex";
+import BoardSerach from "./search/BoardSerach.vue";
 export default {
   name: "BoardList",
   data() {
@@ -29,6 +34,10 @@ export default {
   created() {
     this.$store.dispatch("getArticles");
   },
+  components: {
+    BoardSerach,
+  },
+
   computed: {
     ...mapState({
       articles: (state) => state.board.articles,
