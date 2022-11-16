@@ -52,7 +52,7 @@ export default {
         subject: "",
         content: "",
       },
-    };
+    }
   },
   props: {
     type: { type: String },

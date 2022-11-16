@@ -8,7 +8,10 @@
     <div>
       <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">
-          <router-link :to="`/board/view/${data.item.articleno}`">{{ data.value }}</router-link>
+          <!-- <div @click="moveLIst">{{data.value}}</div> -->
+          <!-- <button type="button" @click="moveList">{{data.value}}</button> -->
+          <!-- <router-link :to="`/board/view/${data.item.articleno}`">{{ data.value }}</router-link> -->
+          <router-link :to="``" @click.native="moveList(data.item)">{{ data.value }}</router-link>
         </template>
       </b-table>
     </div>
@@ -29,7 +32,7 @@ export default {
         { key: "regtime", label: "작성일", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
-    };
+    }
   },
   created() {
     this.$store.dispatch("getArticles");
@@ -38,9 +41,25 @@ export default {
     BoardSerach,
   },
 
+  methods:{
+    moveList(item){
+      console.log(item.userid);
+      console.log(this.userid);
+      if(item.userid != this.userid){
+        alert("관리자와 작성자만 접근 가능합니다!")
+      } else if(this.userid == "admin" || this.userid == item.userid){
+        this.$router.push({
+          name: "boardview",
+          params: { articleno: item.articleno },
+        })
+      }
+    }
+  },
+
   computed: {
     ...mapState({
       articles: (state) => state.board.articles,
+      userid: (state) => state.member.userid,
     }),
   },
 };
