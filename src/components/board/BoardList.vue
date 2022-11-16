@@ -13,7 +13,8 @@
       </b-table>
     </div>
     <b-col class="text-left">
-      <b-button variant="dark" to="/board/write" class="m-1">글쓰기</b-button>
+      <b-button variant="dark" @click="moveWrite" class="m-1">글쓰기</b-button>
+      <!-- to="/board/write" -->
     </b-col>
   </div>
 </template>
@@ -45,12 +46,25 @@ export default {
     moveList(item){
       console.log(item.userid);
       console.log(this.userid);
-      if(item.userid != this.userid){
-        alert("관리자와 작성자만 접근 가능합니다!")
-      } else if(this.userid == "admin" || this.userid == item.userid){
+      if(this.userid == "admin" || this.userid == item.userid){
         this.$router.push({
           name: "boardview",
           params: { articleno: item.articleno },
+        })
+      } else if(item.userid != this.userid){
+        alert("관리자와 작성자만 접근 가능합니다!");
+      }
+    },
+
+    moveWrite(){
+      if (this.userid) {
+        this.$router.push({
+          name: "boardwrite",
+        })
+      } else {
+        alert("로그인 필요!")
+        this.$router.push({
+          name: "login",
         })
       }
     }
