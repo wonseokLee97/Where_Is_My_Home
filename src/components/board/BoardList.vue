@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-button variant="outline-primary" to="/board/write">글쓰기</b-button>
     <div>
       <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">

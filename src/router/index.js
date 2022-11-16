@@ -27,6 +27,11 @@ const routes = [
     redirect: "/board/list",
     children: [
       {
+        path: "write",
+        name: "boardwrite",
+        component: () => import("@/components/board/BoardWrite"),
+      },
+      {
         path: "list",
         name: "boardlist",
         component: () => import("@/components/board/BoardList"),
@@ -35,6 +40,16 @@ const routes = [
         path: "view/:articleno",
         name: "boardview",
         component: () => import("@/components/board/BoardView"),
+      },
+      {
+        path: "modify",
+        name: "boardmodify",
+        component: () => import("@/components/board/BoardModify"),
+      },
+      {
+        path: "delete/:articleno",
+        name: "boarddelete",
+        component: () => import("@/components/board/BoardDelete"),
       },
     ],
   },
