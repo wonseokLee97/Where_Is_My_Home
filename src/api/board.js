@@ -49,7 +49,7 @@ export default {
     },
     searchTitle({ commit }, subject) {
       http
-        .get(/board/title/${subject})
+        .get(`/board/title/${subject}`)
         .then(({ data }) => {
           commit("SET_ARTICLE", data);
           router.push({ name: "boardlist" });
