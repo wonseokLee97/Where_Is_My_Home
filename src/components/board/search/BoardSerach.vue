@@ -2,9 +2,6 @@
   <div>
     <b-form @submit="search">
       <b-input-group>
-        <!-- <template #prepend>
-        <b-input-group-text>검색</b-input-group-text>
-      </template> -->
         <template #append>
           <b-form-input
             id="content"
@@ -13,13 +10,12 @@
             style="width: 500px"
             ref="content"
             v-model="content"
-          ></b-form-input>
-
+          >
+          </b-form-input>
           <select v-model="selected" @change="onChange($event)">
             <option value="title">제목</option>
             <option value="writer">작성자</option>
           </select>
-
           <b-button type="submit" variant="outline-secondary">검색</b-button>
         </template>
       </b-input-group>
@@ -36,12 +32,10 @@ export default {
       selected: "title",
     };
   },
-
   methods: {
     onChange(event) {
       console.log("==" + event.target.value + "==");
     },
-
     search(event) {
       event.preventDefault();
       console.log(this.content);
@@ -58,7 +52,7 @@ export default {
 
       if (!err) alert(msg);
       else {
-        if (this.selected == "제목") {
+        if (this.selected == "title") {
           this.$store.dispatch("searchTitle", this.content);
         } else {
           this.$store.dispatch("searchWriter", this.content);

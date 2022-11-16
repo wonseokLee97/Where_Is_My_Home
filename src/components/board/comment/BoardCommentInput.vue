@@ -62,12 +62,16 @@ export default {
         if (this.type === "modify") this.$store.dispatch("modifyComment", this.comment);
         else this.$store.dispatch("writeComment", this.comment);
         this.$store.commit("SET_MODIFYNO", -1);
+        this.comment.content = "";
       }
     },
   },
   computed: {
     ...mapGetters(["article", "userid"]),
   },
+  beforeDestroy() {
+    this.$store.commit("SET_MODIFYNO", -1);
+  }
 };
 </script>
 

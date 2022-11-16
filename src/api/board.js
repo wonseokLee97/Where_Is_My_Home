@@ -48,28 +48,24 @@ export default {
           console.log(error);
         });
     },
-
     // =========== 검색 =============
-    searchTitle({ store }, subject) {
-      alert("searchTitle!")
+    searchTitle({ commit }, subject) {
       http
         .get(`/board/title/${subject}`)
         .then(({ data }) => {
-          console.log(data+"111");
-          store.commit("SET_ARTICLE_LIST", data);
-          store.dispatch({ name: "boardlist" });
+          console.log(data);
+          commit("SET_ARTICLE_LIST", data);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    searchWriter({ store }, writer) {
+    searchWriter({ commit }, writer) {
       http
         .get(`/board/writer/${writer}`)
         .then(({ data }) => {
           console.log(data);
-          store.commit("SET_ARTICLE_LIST", data);
-          store.dispatch({ name: "boardlist" });
+          commit("SET_ARTICLE_LIST", data);
         })
         .catch((error) => {
           console.log(error);
@@ -136,7 +132,7 @@ export default {
           console.log(error);
         });
     },
-    modifyComment({ store }, comment) {
+    modifyComment({ dispatch }, comment) {
       http
         .put(`/board/comment`, comment)
         .then(({ data }) => {
@@ -145,8 +141,7 @@ export default {
             msg = "댓글 수정이 완료되었습니다.";
           }
           alert(msg);
-          store.commit("SET_MODIFYNO", -1);
-          store.dispatch("getArticle", comment.articleno);
+          dispatch("getArticle", comment.articleno);
         })
         .catch((error) => {
           console.log(error);
