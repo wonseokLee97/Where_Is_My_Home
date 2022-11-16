@@ -4,7 +4,11 @@ export default {
   state: () => ({
     userid: null,
   }),
-
+  getters: {
+    userid(state) {
+      return state.userid;
+    },
+  },
   actions: {
     setLoginUser({ commit }, user) {
       http
@@ -22,7 +26,6 @@ export default {
         });
     },
   },
-
   mutations: {
     SET_LOGIN_USER(state, user) {
       state.userid = user.userId;

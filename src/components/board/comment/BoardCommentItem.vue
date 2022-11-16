@@ -31,10 +31,14 @@ export default {
   },
   methods: {
     moveModifyComment() {
-      console.log("moveModifyComment");
+      // this.$store.dispatch("moveModifyComment", this.article);
     },
     deleteComment() {
-      console.log("deleteComment");
+      this.$store.dispatch("deleteComment", this.comment.commentno);
+      this.refreshAll();
+    },
+    refreshAll() {
+      this.$router.go();
     },
   },
   computed: {
@@ -44,6 +48,7 @@ export default {
     },
   },
 };
+//test
 </script>
 
 <style></style>

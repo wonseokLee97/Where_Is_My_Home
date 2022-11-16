@@ -31,9 +31,7 @@ export default {
     ...mapState({
       userid: (state) => state.member.userid,
     }),
-
     getUser() {
-      console.log(this.userid + "!!");
       if (this.userid) {
         return true;
       } else {
