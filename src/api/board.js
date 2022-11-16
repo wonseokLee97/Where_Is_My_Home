@@ -5,10 +5,14 @@ export default {
   state: () => ({
     article: {},
     articles: [],
+    modifyno: -1,
   }),
   getters: {
     article(state) {
       return state.article;
+    },
+    modifyno(state) {
+      return state.modifyno;
     },
   },
   mutations: {
@@ -17,6 +21,9 @@ export default {
     },
     SET_ARTICLE_LIST(state, articles) {
       state.articles = articles;
+    },
+    SET_MODIFYNO(state, modifyno) {
+      state.modifyno = modifyno;
     },
   },
   actions: {
@@ -35,6 +42,28 @@ export default {
         .get(`/board`)
         .then(({ data }) => {
           commit("SET_ARTICLE_LIST", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    searchTitle({ commit }, subject) {
+      http
+        .get(/board/title/${subject})
+        .then(({ data }) => {
+          commit("SET_ARTICLE", data);
+          router.push({ name: "boardlist" });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    searchWriter({ commit }, writer) {
+      http
+        .get(`/board/writer/${writer}`)
+        .then(({ data }) => {
+          commit("SET_ARTICLE", data);
+          router.push({ name: "boardlist" });
         })
         .catch((error) => {
           console.log(error);
@@ -95,6 +124,22 @@ export default {
           }
           alert(msg);
           dispatch("getArticle", comment.articleno);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    modifyComment({ store }, comment) {
+      http
+        .put(`/board/comment`, comment)
+        .then(({ data }) => {
+          let msg = "댓글 수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "댓글 수정이 완료되었습니다.";
+          }
+          alert(msg);
+          store.commit("SET_MODIFYNO", -1);
+          store.dispatch("getArticle", comment.articleno);
         })
         .catch((error) => {
           console.log(error);

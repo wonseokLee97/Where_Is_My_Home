@@ -34,6 +34,15 @@ export default {
       },
     };
   },
+  props: {
+    type: { type: String },
+    mcomment: {},
+  },
+  created() {
+    if (this.type === "modify") {
+      this.comment = this.mcomment;
+    }
+  },
   methods: {
     onSubmit(event) {
       event.preventDefault();
@@ -50,7 +59,9 @@ export default {
       else {
         this.comment.userid = this.userid;
         this.comment.articleno = this.article.articleno;
-        this.$store.dispatch("writeComment", this.comment);
+        if (this.type === "modify") this.$store.dispatch("modifyComment", this.comment);
+        else this.$store.dispatch("writeComment", this.comment);
+        this.$store.commit("SET_MODIFYNO", -1);
       }
     },
   },
@@ -59,5 +70,5 @@ export default {
   },
 };
 </script>
-//test
+
 <style></style>
