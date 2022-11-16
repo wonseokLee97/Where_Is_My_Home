@@ -9,6 +9,7 @@
           <b-nav-item to="/about">About</b-nav-item>
           <b-nav-item to="#" v-if="getUser" @click="logout">Logout</b-nav-item>
           <b-nav-item to="/login" v-else>Login</b-nav-item>
+          <span>{{ userid }}</span>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
