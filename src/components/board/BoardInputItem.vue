@@ -5,7 +5,7 @@
         <b-form-group id="userid-group" label="작성자:" label-for="userid" description="작성자를 입력하세요.">
           <b-form-input
             id="userid"
-            :disabled="isUserid"
+            :disabled="true"
             v-model="article.userid"
             type="text"
             required
@@ -52,21 +52,21 @@ export default {
         subject: "",
         content: "",
       },
-      isUserid: false,
     };
   },
   props: {
     type: { type: String },
   },
   created() {
+    this.article.userid = this.userid;
     if (this.type === "modify") {
       this.article = this.mArticle;
-      this.isUserid = true;
     }
   },
   computed: {
     ...mapGetters({
       mArticle: ["article"],
+      userid: ["userid"],
     }),
   },
   methods: {
