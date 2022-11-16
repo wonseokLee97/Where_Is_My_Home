@@ -14,6 +14,7 @@
             <b-form-group label="아이디:" label-for="userid">
               <b-form-input
                 id="userid"
+                ref="userid"
                 v-model="user.userId"
                 required
                 placeholder="아이디 입력...."
@@ -24,6 +25,7 @@
               <b-form-input
                 type="password"
                 id="userpwd"
+                ref="userpwd"
                 v-model="user.userPwd"
                 required
                 placeholder="비밀번호 입력...."
@@ -54,12 +56,18 @@ export default {
   methods: {
     confirm() {
       console.log(this.user);
-      this.$store.dispatch("setLoginUser", this.user);
-      this.$router.push({ name: "home" });
-
+      if (this.user.userId == null) {
+        alert("아이디를 입력하세요!");
+        this.$refs.userid.focus();
+      } else if (this.user.userPwd == null) {
+        alert("비밀번호를 입력하세요!");
+        this.$refs.userpwd.focus();
+      } else {
+        this.$store.dispatch("setLoginUser", this.user);
+        this.$router.push({ name: "home" });
+      }
     },
     moveJoin() {
-    
       this.$router.push({ name: "join" });
     },
   },

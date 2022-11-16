@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">Where is my home</b-navbar-brand>
+      <b-navbar-brand to="/">Where is my home</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="/board">Q&A</b-nav-item>
-          <b-nav-item href="/about">About</b-nav-item>
-          <b-nav-item href="#" v-if="getUser" @click="logout">Logout</b-nav-item>
-          <b-nav-item href="/login" v-else>Login</b-nav-item>
+          <b-nav-item to="/board">Q&A</b-nav-item>
+          <b-nav-item to="/about">About</b-nav-item>
+          <b-nav-item to="#" v-if="getUser" @click="logout">Logout</b-nav-item>
+          <b-nav-item to="/login" v-else>Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -30,9 +30,9 @@ export default {
     ...mapState({
       userid: (state) => state.member.userid,
     }),
-    
+
     getUser() {
-      console.log(this.userid+"!!");
+      console.log(this.userid + "!!");
       if (this.userid) {
         return true;
       } else {
