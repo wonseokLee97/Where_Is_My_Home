@@ -7,9 +7,8 @@
         <b-navbar-nav>
           <b-nav-item to="/board">Q&A</b-nav-item>
           <b-nav-item to="/about">About</b-nav-item>
-          <b-nav-item to="#" v-if="getUser" @click="logout">Logout</b-nav-item>
+          <b-nav-item to="#" v-if="userInfo" @click="logout">Logout</b-nav-item>
           <b-nav-item to="/login" v-else>Login</b-nav-item>
-          <span>{{ userid }}</span>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -17,26 +16,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "HeaderNav",
-  methods: {
-    logout() {
-      // mutation 호출
-      console.log("logout");
-      this.$store.commit("LOGOUT");
-    },
-  },
   computed: {
-    ...mapState({
-      userid: (state) => state.member.userid,
-    }),
-    getUser() {
-      if (this.userid) {
-        return true;
-      } else {
-        return false;
-      }
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
+  },
+  methods: {
+    ...mapActions(memberStore, ["userLogout"]),
+    logout() {
+      this.userLogout(this.userInfo.userId);
+      sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
+      sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
+      if (this.$route.path != "/") this.$router.push({ name: "main" });
     },
   },
 };

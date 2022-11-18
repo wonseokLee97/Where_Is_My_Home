@@ -7,10 +7,17 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
+const boardStore = "boardStore";
+
 export default {
   name: "BoardDelete",
   created() {
-    this.$store.dispatch("deleteArticle", this.$route.params.articleno);
+    this.deleteArticle(this.$route.params.articleno);
+  },
+  methods: {
+    ...mapActions(boardStore, ["deleteArticle"]),
   },
 };
 </script>

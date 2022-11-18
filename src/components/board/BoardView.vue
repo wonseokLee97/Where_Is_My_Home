@@ -14,8 +14,8 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${article.articleno}.
-          ${article.subject} [${article.hit}]</h3><div><h6>${article.userid}</div><div>${article.regtime}</h6></div>`"
+          :header-html="`<h3>${article.articleNo}.
+          ${article.subject} [${article.hit}]</h3><div><h6>${article.userId}</div><div>${article.regtime}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -33,38 +33,41 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import BoardComment from "./comment/BoardComment.vue";
 import BoardCommentInput from "./comment/BoardCommentInput.vue";
 
+const boardStore = "boardStore";
+
 export default {
-  components: { BoardComment, BoardCommentInput },
   name: "BoardView",
+  components: {
+    BoardComment,
+    BoardCommentInput,
+  },
   created() {
-    this.$store.dispatch("getArticle", this.$route.params.articleno);
+    this.getArticle(this.$route.params.articleno);
   },
   computed: {
-    ...mapState({
-      board: (state) => state.board,
-      article: (state) => state.board.article,
-    }),
+    ...mapState(boardStore, ["article"]),
     message() {
       if (this.article.content) return this.article.content.split("\n").join("<br>");
       return "";
     },
   },
   methods: {
+    ...mapActions(boardStore, ["getArticle"]),
     moveModifyArticle() {
       this.$router.replace({
         name: "boardmodify",
-        params: { articleno: this.article.articleno },
+        params: { articleno: this.article.articleNo },
       });
     },
     deleteArticle() {
       if (confirm("삭제하시겠습니까?")) {
         this.$router.replace({
           name: "boarddelete",
-          params: { articleno: this.article.articleno },
+          params: { articleno: this.article.articleNo },
         });
       }
     },

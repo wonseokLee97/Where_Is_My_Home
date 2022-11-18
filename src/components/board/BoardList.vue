@@ -20,10 +20,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import BoardSerach from "./search/BoardSerach.vue";
+
+const boardStore = "boardStore";
+
 export default {
   name: "BoardList",
+  components: {
+    BoardSerach,
+  },
   data() {
     return {
       fields: [
@@ -33,48 +39,25 @@ export default {
         { key: "regtime", label: "작성일", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
-    }
+    };
   },
   created() {
-    this.$store.dispatch("getArticles");
+    this.listArticle();
   },
-  components: {
-    BoardSerach,
-  },
-
-  methods:{
-    moveList(item){
-      console.log(item.userid);
-      console.log(this.userid);
-      if(this.userid == "admin" || this.userid == item.userid){
-        this.$router.push({
-          name: "boardview",
-          params: { articleno: item.articleno },
-        })
-      } else if(item.userid != this.userid){
-        alert("관리자와 작성자만 접근 가능합니다!");
-      }
-    },
-
-    moveWrite(){
-      if (this.userid) {
-        this.$router.push({
-          name: "boardwrite",
-        })
-      } else {
-        alert("로그인 필요!")
-        this.$router.push({
-          name: "login",
-        })
-      }
-    }
-  },
-
   computed: {
-    ...mapState({
-      articles: (state) => state.board.articles,
-      userid: (state) => state.member.userid,
-    }),
+    ...mapState(boardStore, ["articles"]),
+  },
+  methods: {
+    ...mapActions(boardStore, ["listArticle"]),
+    moveList(item) {
+      this.$router.push({
+        name: "boardview",
+        params: { articleno: item.articleNo },
+      });
+    },
+    moveWrite() {
+      this.$router.push({ name: "boardwrite" });
+    },
   },
 };
 </script>

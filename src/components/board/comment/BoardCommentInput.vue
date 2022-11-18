@@ -20,16 +20,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+
+const memberStore = "memberStore";
+const boardStore = "boardStore";
+
 export default {
   name: "BoardInputItem",
   data() {
     return {
       comment: {
-        userid: "",
+        userId: "",
         content: "",
-        articleno: "",
+        articleNo: "",
       },
+      modifyChange: false,
     };
   },
   props: {
@@ -41,7 +46,13 @@ export default {
       this.comment = this.mcomment;
     }
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapGetters(boardStore, ["article", "modifyNo"]),
+  },
   methods: {
+    ...mapActions(boardStore, ["writeComment", "modifyComment"]),
+    ...mapMutations(boardStore, ["SET_MODIFYNO"]),
     modify(event) {
       event.preventDefault();
 
@@ -55,23 +66,25 @@ export default {
 
       if (!err) alert(msg);
       else {
-        this.comment.userid = this.userid;
-        this.comment.articleno = this.article.articleno;
-        if (this.type === "modify") this.$store.dispatch("modifyComment", this.comment);
-        else this.$store.dispatch("writeComment", this.comment);
-        this.$store.commit("SET_MODIFYNO", -1);
+        this.comment.userId = this.userInfo.userId;
+        this.comment.articleNo = this.article.articleNo;
+        if (this.type === "modify") this.modifyComment(this.comment);
+        else this.writeComment(this.comment);
+        this.SET_MODIFYNO(-1);
         this.comment.content = "";
       }
     },
     cancle() {
-      this.$store.commit("SET_MODIFYNO", -1);
+      this.SET_MODIFYNO(-1);
     },
   },
-  computed: {
-    ...mapGetters(["article", "userid"]),
+  watch: {
+    modifyNo() {
+      this.modifyChange = true;
+    },
   },
   beforeDestroy() {
-    this.$store.commit("SET_MODIFYNO", -1);
+    if (this.modifyChange) this.SET_MODIFYNO(-1);
   },
 };
 </script>

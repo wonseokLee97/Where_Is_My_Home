@@ -1,15 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import board from "@/api/board";
-import member from "@/api/member";
 import createPersistedState from "vuex-persistedstate";
+
+// module import
+import boardStore from "@/store/modules/boardStore";
+import memberStore from "@/store/modules/memberStore";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    board: board,
-    member: member,
+    boardStore,
+    memberStore,
   },
   plugins: [
     createPersistedState({

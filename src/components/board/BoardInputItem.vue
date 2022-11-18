@@ -11,7 +11,7 @@
           <b-form-input
             id="userid"
             :disabled="true"
-            v-model="article.userid"
+            v-model="article.userId"
             type="text"
             required
             placeholder="작성자 입력..."
@@ -54,40 +54,43 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import store from "@/store";
+import { mapActions, mapState } from "vuex";
+
+const memberStore = "memberStore";
+const boardStore = "boardStore";
+
 export default {
   name: "BoardInputItem",
   data() {
     return {
       article: {
-        userid: "",
+        userId: "",
         subject: "",
         content: "",
       },
-    }
+    };
   },
   props: {
     type: { type: String },
   },
   created() {
-    this.article.userid = this.userid;
+    this.article.userId = this.userInfo.userId;
     if (this.type === "modify") {
-      this.article = this.mArticle;
+      this.article = store.getters["boardStore/article"];
     }
   },
   computed: {
-    ...mapGetters({
-      mArticle: ["article"],
-      userid: ["userid"],
-    }),
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
+    ...mapActions(boardStore, ["writeArticle", "modifyArticle"]),
     onSubmit(event) {
       event.preventDefault();
 
       let err = true;
       let msg = "";
-      !this.article.userid &&
+      !this.article.userId &&
         ((msg = "작성자 입력해주세요"), (err = false), this.$refs.userid.focus());
       err &&
         !this.article.subject &&
@@ -97,13 +100,10 @@ export default {
         ((msg = "내용 입력해주세요"), (err = false), this.$refs.content.focus());
 
       if (!err) alert(msg);
-      else this.type === "register" ? this.registArticle() : this.modifyArticle();
-    },
-    registArticle() {
-      this.$store.dispatch("writeArticle", this.article);
-    },
-    modifyArticle() {
-      this.$store.dispatch("modifyArticle", this.article);
+      else
+        this.type === "register"
+          ? this.writeArticle(this.article)
+          : this.modifyArticle(this.article);
     },
     moveList() {
       this.$router.push({ name: "boardlist" });

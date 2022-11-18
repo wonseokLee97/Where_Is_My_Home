@@ -3,13 +3,13 @@
     <b-row class="mb-1">
       <b-col class="text-right">
         <b-button variant="secondary" size="sm" @click="modifyComment" class="mr-2">수정</b-button>
-        <b-button variant="outline-secondary" size="sm" @click="deleteComment">삭제</b-button>
+        <b-button variant="outline-secondary" size="sm" @click="deleteCommentAction">삭제</b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h6>${comment.userid}</h6> ${comment.regtime}</div>`"
+          :header-html="`<h6>${comment.userId}</h6> ${comment.regtime}</div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -24,17 +24,23 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from "vuex";
+
+const boardStore = "boardStore";
+
 export default {
   name: "BoardCommentItem",
   props: {
     comment: {},
   },
   methods: {
+    ...mapMutations(boardStore, ["SET_MODIFYNO"]),
+    ...mapActions(boardStore, ["deleteComment"]),
     modifyComment() {
-      this.$store.commit("SET_MODIFYNO", this.comment.commentno);
+      this.SET_MODIFYNO(this.comment.commentNo);
     },
-    deleteComment() {
-      this.$store.dispatch("deleteComment", this.comment);
+    deleteCommentAction() {
+      this.deleteComment(this.comment);
     },
   },
   computed: {
