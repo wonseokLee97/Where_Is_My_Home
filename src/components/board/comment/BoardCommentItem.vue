@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
-      <b-col class="text-right">
+      <b-col class="text-right" v-if="userInfo.userId === article.userId">
         <b-button variant="secondary" size="sm" @click="modifyComment" class="mr-2">수정</b-button>
         <b-button variant="outline-secondary" size="sm" @click="deleteCommentAction">삭제</b-button>
       </b-col>
