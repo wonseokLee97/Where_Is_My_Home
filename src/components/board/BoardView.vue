@@ -4,7 +4,7 @@
       <b-col class="text-left">
         <b-button variant="light" to="/board/list">목록</b-button>
       </b-col>
-      <b-col class="text-right">
+      <b-col class="text-right" v-if="userInfo.userId === article.userId">
         <b-button variant="secondary" size="sm" @click="moveModifyArticle" class="mr-2"
           >글수정</b-button
         >
