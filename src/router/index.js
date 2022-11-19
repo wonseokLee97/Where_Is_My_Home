@@ -44,6 +44,11 @@ const routes = [
     component: () => import("@/components/user/UserLogin"),
   },
   {
+    path: "/signup",
+    name: "signup",
+    component: () => import("@/components/user/UserSignup"),
+  },
+  {
     path: "/board",
     name: "board",
     component: () => import("@/views/BoardView"),
