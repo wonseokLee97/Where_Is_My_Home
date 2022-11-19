@@ -33,3 +33,4 @@ async function deleteUser(userid, success, fail) {
 }
 
 export { login, findById, tokenRegeneration, logout, regist, modify, deleteUser };
+//
