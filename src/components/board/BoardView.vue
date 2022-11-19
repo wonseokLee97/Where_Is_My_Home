@@ -38,6 +38,7 @@ import BoardComment from "./comment/BoardComment.vue";
 import BoardCommentInput from "./comment/BoardCommentInput.vue";
 
 const boardStore = "boardStore";
+const memberStore = "memberStore";
 
 export default {
   name: "BoardView",
@@ -50,6 +51,7 @@ export default {
   },
   computed: {
     ...mapState(boardStore, ["article"]),
+    ...mapState(memberStore, ["userInfo"]),
     message() {
       if (this.article.content) return this.article.content.split("\n").join("<br>");
       return "";

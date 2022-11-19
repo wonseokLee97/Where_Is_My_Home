@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
-      <b-col class="text-right" v-if="userInfo.userId === article.userId">
+      <b-col class="text-right" v-if="userInfo.userId === comment.userId">
         <b-button variant="secondary" size="sm" @click="modifyComment" class="mr-2">수정</b-button>
         <b-button variant="outline-secondary" size="sm" @click="deleteCommentAction">삭제</b-button>
       </b-col>
@@ -24,9 +24,10 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 const boardStore = "boardStore";
+const memberStore = "memberStore";
 
 export default {
   name: "BoardCommentItem",
@@ -44,6 +45,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(memberStore, ["userInfo"]),
     message() {
       if (this.comment.content) return this.comment.content.split("\n").join("<br>");
       return "";
