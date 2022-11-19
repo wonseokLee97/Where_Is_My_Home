@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout } from "@/api/member";
+import { login, findById, tokenRegeneration, logout, regist, modify, deleteUser } from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -33,6 +33,7 @@ const memberStore = {
       state.userInfo = userInfo;
     },
   },
+  
   actions: {
     async userConfirm({ commit }, user) {
       await login(
@@ -131,6 +132,53 @@ const memberStore = {
         }
       );
     },
+    async registUser(_, user) {
+      await regist(
+        user,
+        ({ data }) => {
+          if (data === "success") {
+            alert("회원가입 성공");
+            router.push({ name: "login" });
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
+    async modifyUser({ commit }, user) {
+      await modify(
+        user,
+        ({data}) => {
+          if (data === "success") {
+            alert("회원정보 수정 성공");
+            commit("SET_USER_INFO", user);
+            router.push({ name: "home" });
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    },
+
+    async deleteUser({ commit }, userid) {
+      await deleteUser(
+        userid,
+        ({data}) => {
+          if (data === "success") {
+            alert("회원탈퇴 성공");
+            commit("SET_USER_INFO", null);
+            router.push({ name: "home" });
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    }
+
   },
 };
 

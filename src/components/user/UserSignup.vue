@@ -9,7 +9,7 @@
             <b-col></b-col>
             <b-col cols="6">
                 <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
-                    <b-form @submit="onRegist" class="text-left">
+                    <b-form @submit="doRegist" class="text-left">
                         <b-form-group label="아이디:" label-for="userid">
                             <!-- <b-form-input 
                                 :state = "idState"
@@ -80,6 +80,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+const memberStore = "memberStore";
+
 export default {
     data() {
         return {
@@ -92,18 +95,21 @@ export default {
                 userName: null,
                 emailId: null,
                 emailDomain: "gmail.com",
-                // grade: "G",
+                grade: "G",
             },
         }
     },
 
     methods: {
+        ...mapActions(memberStore, ["registUser"]),
         onChange(event) {
             console.log("==" + event + "==");
         },
-        onRegist() {
-            console.log(this.user);
-            this.$store.dispatch("registUser", this.user);
+        doRegist(event) {
+            event.preventDefault();
+            this.registUser(this.user);
+            // console.log(this.user);
+            // this.registUser(this.user);
         },
     },
 
