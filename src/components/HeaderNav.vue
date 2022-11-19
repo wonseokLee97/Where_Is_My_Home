@@ -18,7 +18,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-
+//
 const memberStore = "memberStore";
 
 export default {

@@ -1,10 +1,10 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert variant="secondary" show><h3>로그인</h3></b-alert>
-      </b-col>
-    </b-row>
+        <br>
+        <div>
+          <h3>로그인</h3>
+        </div>
+        <hr>
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
