@@ -12,23 +12,19 @@
       </b-col>
     </b-row>
     <b-row class="mb-1">
-      <b-col>
-        <b-card
-          :header-html="`<h3>${article.articleNo}.
-          ${article.subject} [${article.hit}]</h3><div><h6>${article.userId}</div><div>${article.regtime}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
+      <b-card no-body style="width: 100%">
+        <b-card-title
+          >{{ article.articleNo }}. {{ article.subject }} [{{ article.hit }}]</b-card-title
         >
-          <b-card-body class="text-left">
-            <div v-html="message"></div>
-            <hr />
-            <board-comment :comments="article.comments"></board-comment>
-            <board-comment-input></board-comment-input>
-          </b-card-body>
-        </b-card>
-      </b-col>
+        <b-card-sub-title>{{ article.userId }}<br />{{ article.regtime }}</b-card-sub-title>
+        <hr />
+        <b-card-body class="text-left">
+          <div v-html="message"></div>
+        </b-card-body>
+      </b-card>
     </b-row>
+    <board-comment :comments="article.comments"></board-comment>
+    <board-comment-input></board-comment-input>
   </b-container>
 </template>
 

@@ -1,19 +1,14 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
-      <b-col class="text-right" v-if="userInfo.userId === comment.userId">
-        <b-button variant="secondary" size="sm" @click="modifyComment" class="mr-2">수정</b-button>
-        <b-button variant="outline-secondary" size="sm" @click="deleteCommentAction">삭제</b-button>
-      </b-col>
-    </b-row>
-    <b-row class="mb-1">
       <b-col>
-        <b-card
-          :header-html="`<h6>${comment.userId}</h6> ${comment.regtime}</div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
-        >
+        <b-card no-body style="width: 100%">
+          <b-card-sub-title>{{ comment.userId }}<br />{{ comment.regtime }}</b-card-sub-title>
+          <b-col class="text-right" v-if="userInfo.userId === comment.userId">
+            <b-icon icon="pen" @click="modifyComment" />
+            &nbsp;
+            <b-icon icon="x-square" @click="deleteCommentAction" />
+          </b-col>
           <b-card-body class="text-left">
             <div v-html="message"></div>
           </b-card-body>
@@ -41,7 +36,9 @@ export default {
       this.SET_MODIFYNO(this.comment.commentNo);
     },
     deleteCommentAction() {
-      this.deleteComment(this.comment);
+      if (confirm("삭제하시겠습니까?")) {
+        this.deleteComment(this.comment);
+      }
     },
   },
   computed: {

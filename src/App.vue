@@ -17,6 +17,15 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "hannapro";
+  src: url("../public/fonts/BMHANNAPro.ttf");
+}
+
+* {
+  font-family: "hannapro";
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
