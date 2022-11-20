@@ -39,7 +39,7 @@
             >
             <b-button type="button" variant="dark" class="m-1" @click="moveJoin">회원가입</b-button>
             <hr>
-            <b-button type="button" variant="light" class="m-1" @click="moveJoin">비밀번호 찾기</b-button>
+            <b-button type="button" variant="light" class="m-1" @click="moveFindpw">비밀번호 찾기</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -85,6 +85,9 @@ export default {
     },
     moveJoin() {
       this.$router.push({ name: "signup" });
+    },
+    moveFindpw() {
+      this.$router.push({ name: "findpw" });
     },
   },
 };

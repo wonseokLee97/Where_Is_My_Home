@@ -49,6 +49,11 @@ const routes = [
     component: () => import("@/components/user/UserMypage"),
   },
   {
+    path: "/findpw",
+    name: "findpw",
+    component: () => import("@/components/user/UserFindpw"),
+  },
+  {
     path: "/board",
     name: "board",
     component: () => import("@/views/BoardView"),
