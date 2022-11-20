@@ -25,49 +25,6 @@
       </b-col>
     </b-row>
   </b-container>
-  <!-- </b-container>
-  <b-row class="text-center">
-    <b-form @submit="search">
-      <b-input-group>
-        <template #prepend>
-          <b-select v-model="searchParam.key">
-            <option value="subject">제목</option>
-            <option value="userid">작성자</option>
-          </b-select>
-        </template>
-        <b-form-input
-          id="content"
-          type="text"
-          placeholder="search"
-          ref="content"
-          v-model="searchParam.word"
-        />
-        <template #append>
-          <b-button type="submit" variant="outline-secondary">검색</b-button>
-        </template>
-      </b-input-group>
-    </b-form>
-  </b-row> -->
-  <!-- <b-form @submit="search">
-      <b-input-group>
-        <template #append>
-          <b-form-input
-            id="content"
-            type="text"
-            placeholder="search"
-            style="width: 1000px"
-            ref="content"
-            v-model="searchParam.word"
-          >
-          </b-form-input>
-          <b-select v-model="searchParam.key">
-            <option value="subject">제목</option>
-            <option value="userid">작성자</option>
-          </b-select>
-          <b-button type="submit" variant="outline-secondary">검색</b-button>
-        </template>
-      </b-input-group>
-    </b-form> -->
 </template>
 
 <script>
