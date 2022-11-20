@@ -1,6 +1,7 @@
 import router from "@/router";
 import {
   listArticle,
+  getArticleCount,
   writeArticle,
   getArticle,
   modifyArticle,
@@ -15,6 +16,7 @@ const boardStore = {
   state: {
     article: {},
     articles: [],
+    totalRows: 0,
     modifyNo: -1,
   },
   getters: {
@@ -32,11 +34,37 @@ const boardStore = {
     SET_ARTICLE_LIST(state, articles) {
       state.articles = articles;
     },
+    SET_TOTAL_ROWS(state, totalRows) {
+      state.totalRows = totalRows;
+    },
     SET_MODIFYNO(state, modifyNo) {
       state.modifyNo = modifyNo;
     },
   },
   actions: {
+    async listArticle({ commit, dispatch }, params) {
+      await listArticle(
+        params,
+        ({ data }) => {
+          commit("SET_ARTICLE_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      await dispatch("getArticleCount", params);
+    },
+    async getArticleCount({ commit }, params) {
+      await getArticleCount(
+        params,
+        ({ data }) => {
+          commit("SET_TOTAL_ROWS", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
     async getArticle({ commit }, articleNo) {
       await getArticle(
         articleNo,
@@ -48,41 +76,6 @@ const boardStore = {
         }
       );
     },
-    async listArticle({ commit }, params) {
-      await listArticle(
-        params,
-        ({ data }) => {
-          commit("SET_ARTICLE_LIST", data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-    // =========== 검색 =============
-    // searchTitle({ commit }, subject) {
-    //   http
-    //     .get(`/board/title/${subject}`)
-    //     .then(({ data }) => {
-    //       console.log(data);
-    //       commit("SET_ARTICLE_LIST", data);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
-    // searchWriter({ commit }, writer) {
-    //   http
-    //     .get(`/board/writer/${writer}`)
-    //     .then(({ data }) => {
-    //       console.log(data);
-    //       commit("SET_ARTICLE_LIST", data);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
-    // =============================
     async writeArticle(_, article) {
       await writeArticle(
         article,

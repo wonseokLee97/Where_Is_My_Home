@@ -1,26 +1,73 @@
 <template>
-  <div>
+  <b-container class="bv-example-row">
+    <b-row class="text-center">
+      <b-col md="8" offset-md="2">
+        <b-form @submit="search">
+          <b-input-group>
+            <template #prepend>
+              <b-select v-model="searchParam.key">
+                <option value="subject">제목</option>
+                <option value="userid">작성자</option>
+              </b-select>
+            </template>
+            <b-form-input
+              id="content"
+              type="text"
+              placeholder="search"
+              ref="content"
+              v-model="searchParam.word"
+            />
+            <template #append>
+              <b-button type="submit" variant="outline-secondary">검색</b-button>
+            </template>
+          </b-input-group>
+        </b-form>
+      </b-col>
+    </b-row>
+  </b-container>
+  <!-- </b-container>
+  <b-row class="text-center">
     <b-form @submit="search">
+      <b-input-group>
+        <template #prepend>
+          <b-select v-model="searchParam.key">
+            <option value="subject">제목</option>
+            <option value="userid">작성자</option>
+          </b-select>
+        </template>
+        <b-form-input
+          id="content"
+          type="text"
+          placeholder="search"
+          ref="content"
+          v-model="searchParam.word"
+        />
+        <template #append>
+          <b-button type="submit" variant="outline-secondary">검색</b-button>
+        </template>
+      </b-input-group>
+    </b-form>
+  </b-row> -->
+  <!-- <b-form @submit="search">
       <b-input-group>
         <template #append>
           <b-form-input
             id="content"
             type="text"
             placeholder="search"
-            style="width: 500px"
+            style="width: 1000px"
             ref="content"
-            v-model="content"
+            v-model="searchParam.word"
           >
           </b-form-input>
-          <select v-model="selected" @change="onChange($event)">
-            <option value="title">제목</option>
-            <option value="writer">작성자</option>
-          </select>
+          <b-select v-model="searchParam.key">
+            <option value="subject">제목</option>
+            <option value="userid">작성자</option>
+          </b-select>
           <b-button type="submit" variant="outline-secondary">검색</b-button>
         </template>
       </b-input-group>
-    </b-form>
-  </div>
+    </b-form> -->
 </template>
 
 <script>
@@ -28,23 +75,20 @@ export default {
   name: "BoardSearch",
   data() {
     return {
-      content: "",
-      selected: "title",
+      searchParam: {
+        key: "subject",
+        word: "",
+      },
     };
   },
   methods: {
-    onChange(event) {
-      console.log("==" + event.target.value + "==");
-    },
     search(event) {
       event.preventDefault();
-      console.log(this.content);
-      console.log(this.selected);
 
       let err = true;
       let msg = "";
 
-      if (!this.content) {
+      if (!this.searchParam.word) {
         msg = "검색어를 입력해주세요";
         err = false;
         this.$refs.content.focus();
@@ -52,11 +96,7 @@ export default {
 
       if (!err) alert(msg);
       else {
-        if (this.selected == "title") {
-          this.$store.dispatch("searchTitle", this.content);
-        } else {
-          this.$store.dispatch("searchWriter", this.content);
-        }
+        this.$emit("search", this.searchParam);
       }
     },
   },

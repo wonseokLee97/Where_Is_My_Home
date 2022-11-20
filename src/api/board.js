@@ -6,6 +6,10 @@ async function listArticle(param, success, fail) {
   api.get(`/board`, { params: param }).then(success).catch(fail);
 }
 
+async function getArticleCount(param, success, fail) {
+  api.get(`/board/count`, { params: param }).then(success).catch(fail);
+}
+
 async function writeArticle(article, success, fail) {
   api.post(`/board`, JSON.stringify(article)).then(success).catch(fail);
 }
@@ -36,6 +40,7 @@ async function deleteComment(commentno, success, fail) {
 
 export {
   listArticle,
+  getArticleCount,
   writeArticle,
   getArticle,
   modifyArticle,

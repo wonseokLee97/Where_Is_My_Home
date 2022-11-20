@@ -1,21 +1,26 @@
 <template>
   <div>
-    <board-serach></board-serach>
+    <board-serach @search="search"></board-serach>
     <br />
     <div>
       <b-table responsive :items="articles" :fields="fields">
         <template #cell(subject)="data">
-          <!-- <div @click="moveLIst">{{data.value}}</div> -->
-          <!-- <button type="button" @click="moveList">{{data.value}}</button> -->
-          <!-- <router-link :to="`/board/view/${data.item.articleno}`">{{ data.value }}</router-link> -->
           <router-link :to="``" @click.native="moveList(data.item)">{{ data.value }}</router-link>
         </template>
       </b-table>
     </div>
     <b-col class="text-left">
       <b-button variant="dark" @click="moveWrite" class="m-1">글쓰기</b-button>
-      <!-- to="/board/write" -->
     </b-col>
+    <b-pagination
+      align="center"
+      v-model="params.pg"
+      pills
+      :total-rows="totalRows"
+      :per-page="params.spp"
+      class="customPagination"
+      @change="pageClick"
+    ></b-pagination>
   </div>
 </template>
 
@@ -32,6 +37,13 @@ export default {
   },
   data() {
     return {
+      params: {
+        pg: 1,
+        spp: 1,
+        start: 1,
+        key: null,
+        word: null,
+      },
       fields: [
         { key: "articleNo", label: "글번호", tdClass: "tdClass" },
         { key: "subject", label: "제목", tdClass: "tdSubject" },
@@ -42,10 +54,10 @@ export default {
     };
   },
   created() {
-    this.listArticle();
+    this.listArticle(this.params);
   },
   computed: {
-    ...mapState(boardStore, ["articles"]),
+    ...mapState(boardStore, ["articles", "totalRows"]),
   },
   methods: {
     ...mapActions(boardStore, ["listArticle"]),
@@ -58,8 +70,16 @@ export default {
     moveWrite() {
       this.$router.push({ name: "boardwrite" });
     },
+    search(searchParam) {
+      this.params.key = searchParam.key;
+      this.params.word = searchParam.word;
+      this.listArticle(this.params);
+    },
+    pageClick(page) {
+      this.params.pg = page;
+      this.params.start = this.params.pg * this.params.spp;
+      this.listArticle(this.params);
+    },
   },
 };
 </script>
-
-<style></style>
