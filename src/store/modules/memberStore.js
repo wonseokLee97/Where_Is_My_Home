@@ -1,10 +1,11 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout, regist, modify, deleteUser } from "@/api/member";
+import { login, findById, tokenRegeneration, logout, regist, modify, deleteUser, findByName } from "@/api/member";
 
 const memberStore = {
   namespaced: true,
   state: {
+    isValidate: false,
     isLogin: false,
     isLoginError: false,
     userInfo: null,
@@ -32,6 +33,9 @@ const memberStore = {
       state.isLogin = true;
       state.userInfo = userInfo;
     },
+    SET_USER_VALIDATE: (state, isValidate) => {
+      state.isValidate = isValidate;
+    }
   },
   
   actions: {
@@ -177,8 +181,40 @@ const memberStore = {
           console.log(error);
         }
       )
-    }
+    },
 
+    async checkEmail({commit}, user) {
+      await findByName(
+        user,
+        ({ data }) => {
+          console.log(data);
+          let msg = "이메일 혹은 이름을 찾을 수 없습니다..";
+          if (data.message === "success") {
+            msg = "해당 이메일로 비밀번호를 전송했습니다.";
+            commit("SET_USER_VALIDATE", user.userName)
+          }
+          commit("SET_USER_VALIDATE", null)
+          alert(msg);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    },
+
+    // async sendEmail(_, userEmail) {
+    //   await sendEmail(
+    //     userEmail,
+    //     ({ data }) => {
+    //       console.log(data);
+    //       console.log("라면좀 ㅋㅋ");
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   )
+    // }
+    
   },
 };
 

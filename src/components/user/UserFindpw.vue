@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 
 export default {
     data() {
@@ -57,8 +58,12 @@ export default {
             },
         };
     },
+    computed: {
+        ...mapState("memberStore", ["isValidate"]),
+    },
 
     methods: {
+        ...mapActions("memberStore", ["checkEmail", "sendEmail"]),
         async confirm() {
             if (this.user.userEmail == null) {
                 alert("이메일은 필수값입니다.");
@@ -66,6 +71,12 @@ export default {
             } else if (this.user.userName == null) {
                 alert("이름은 필수값입니다.");
                 this.$refs.userName.focus();
+            } else {
+                await this.checkEmail(this.user);
+
+                if (this.isValidate == this.user.userName) {
+                    this.$router.push({ name: "login" });
+                } 
             }
         },
 

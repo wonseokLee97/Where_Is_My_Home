@@ -32,5 +32,10 @@ async function deleteUser(userid, success, fail) {
   await api.delete(`/user/${userid}`).then(success).catch(fail);
 }
 
-export { login, findById, tokenRegeneration, logout, regist, modify, deleteUser };
+async function findByName(user, success, fail) {
+  console.log(typeof(user));
+  await api.post(`/user/email`, user).then(success).catch(fail);
+}
+
+export { login, findById, tokenRegeneration, logout, regist, modify, deleteUser, findByName };
 //
