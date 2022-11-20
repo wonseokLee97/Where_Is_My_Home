@@ -7,7 +7,7 @@
         <hr>
     <b-row>
       <b-col></b-col>
-      <b-col cols="8">
+      <b-col cols="6">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form class="text-left">
             <b-alert show variant="danger" v-if="isLoginError"
@@ -38,6 +38,8 @@
               >로그인</b-button
             >
             <b-button type="button" variant="dark" class="m-1" @click="moveJoin">회원가입</b-button>
+            <hr>
+            <b-button type="button" variant="light" class="m-1" @click="moveJoin">비밀번호 찾기</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -82,7 +84,7 @@ export default {
       }
     },
     moveJoin() {
-      this.$router.push({ name: "join" });
+      this.$router.push({ name: "signup" });
     },
   },
 };
