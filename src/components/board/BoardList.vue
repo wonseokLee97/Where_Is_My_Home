@@ -73,6 +73,8 @@ export default {
     search(searchParam) {
       this.params.key = searchParam.key;
       this.params.word = searchParam.word;
+      this.params.pg = 1;
+      this.params.start = 1;
       this.listArticle(this.params);
     },
     pageClick(page) {
