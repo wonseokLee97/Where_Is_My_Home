@@ -37,7 +37,7 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/components/user/UserLogin"),
-  }, //
+  },
   {
     path: "/signup",
     name: "signup",
@@ -90,8 +90,13 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/apart",
+    name: "apart",
+    beforeEnter: onlyAuthUser,
+    component: () => import("@/views/ApartView"),
+  },
 ];
-//
 
 const router = new VueRouter({
   mode: "history",
