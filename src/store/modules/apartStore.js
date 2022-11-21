@@ -1,4 +1,4 @@
-import { getSido, getGugun, getDong, getApartList, getApartInfo } from "@/api/apart";
+import { getSido, getGugun, getDong, getApartList, getApartInfo, getApartDeals, getApartDealCount } from "@/api/apart";
 
 const apartStore = {
   namespaced: true,
@@ -8,6 +8,8 @@ const apartStore = {
     dongList: [],
     apartList: [],
     apartInfo: {},
+    apartDeals: [],
+    totalRows: 0,
   },
   mutations: {
     SET_SIDO_LIST(state, sidoList) {
@@ -27,6 +29,12 @@ const apartStore = {
     },
     SET_APT_INFO(state, apartInfo) {
       state.apartInfo = apartInfo;
+    },
+    SET_APT_DEALS(state, apartDeals) {
+      state.apartDeals = apartDeals;
+    },
+    SET_TOTAL_ROWS(state, totalRows) {
+      state.totalRows = totalRows;
     },
   },
   actions: {
@@ -66,7 +74,6 @@ const apartStore = {
       await getApartList(
         param,
         ({ data }) => {
-          console.log(data);
           commit("SET_APT_LIST", data);
         },
         (error) => {
@@ -79,6 +86,29 @@ const apartStore = {
         aptcode,
         ({ data }) => {
           commit("SET_APT_INFO", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async getApartDeals({ commit, dispatch }, searchParam) {
+      await getApartDeals(
+        searchParam,
+        ({ data }) => {
+          commit("SET_APT_DEALS", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+      await dispatch("getApartDealCount", searchParam.aptCode);
+    },
+    async getApartDealCount({ commit }, aptCode) {
+      await getApartDealCount(
+        aptCode,
+        ({ data }) => {
+          commit("SET_TOTAL_ROWS", data);
         },
         (error) => {
           console.log(error);

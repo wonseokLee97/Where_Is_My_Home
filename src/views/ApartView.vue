@@ -6,7 +6,10 @@
     <!-- map -->
     <kakao-map></kakao-map>
     <!-- modal -->
-    <apart-info aptCode="11110000000001"></apart-info>
+    <button @click="showModal">버튼</button>
+    <template v-if="modal">
+      <apart-info aptCode="11110000000002" @closeModal="closeModal"></apart-info>
+    </template>
   </div>
 </template>
 
@@ -17,10 +20,23 @@ import ApartInfo from "@/components/apart/ApartInfo";
 
 export default {
   name: "ApartView",
+  data() {
+    return {
+      modal: false,
+    };
+  },
   components: {
     KakaoMap,
     ApartSearch,
     ApartInfo,
+  },
+  methods: {
+    showModal() {
+      this.modal = true;
+    },
+    closeModal() {
+      this.modal = false;
+    },
   },
 };
 </script>

@@ -20,7 +20,7 @@
       :per-page="params.spp"
       class="customPagination"
       @change="pageClick"
-    ></b-pagination>
+    />
   </div>
 </template>
 
@@ -79,7 +79,7 @@ export default {
     },
     pageClick(page) {
       this.params.pg = page;
-      this.params.start = this.params.pg * this.params.spp;
+      this.params.start = (this.params.pg - 1) * this.params.spp;
       this.listArticle(this.params);
     },
   },
