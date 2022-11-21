@@ -2,7 +2,7 @@
   <div>
     <b-input-group>
       <b-form-textarea
-        id="comment"
+        id="textarea-no-resize"
         type="text"
         placeholder="댓글을 입력하세요"
         ref="comment"
@@ -10,7 +10,7 @@
       >
       </b-form-textarea>
       <b-input-group-append>
-        <b-button @click="modify" variant="outline-secondary">등록</b-button>
+        <b-button @click="regist" variant="outline-secondary">등록</b-button>
         <b-button @click="cancle">
           <b-icon icon="x" />
         </b-button>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 const memberStore = "memberStore";
 const boardStore = "boardStore";
@@ -32,9 +32,9 @@ export default {
       comment: {
         userId: "",
         content: "",
-        articleNo: "",
+        articleNo: 0,
+        commentNo: 0,
       },
-      modifyChange: false,
     };
   },
   props: {
@@ -43,17 +43,17 @@ export default {
   },
   created() {
     if (this.type === "modify") {
-      this.comment = this.mcomment;
+      this.comment.commentNo = this.mcomment.commentNo;
+      this.comment.content = this.mcomment.content;
     }
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
-    ...mapGetters(boardStore, ["article", "modifyNo"]),
+    ...mapGetters(boardStore, ["article"]),
   },
   methods: {
     ...mapActions(boardStore, ["writeComment", "modifyComment"]),
-    ...mapMutations(boardStore, ["SET_MODIFYNO"]),
-    modify(event) {
+    regist(event) {
       event.preventDefault();
 
       let err = true;
@@ -70,21 +70,14 @@ export default {
         this.comment.articleNo = this.article.articleNo;
         if (this.type === "modify") this.modifyComment(this.comment);
         else this.writeComment(this.comment);
-        this.SET_MODIFYNO(-1);
         this.comment.content = "";
+        this.cancle();
       }
     },
     cancle() {
-      this.SET_MODIFYNO(-1);
+      this.comment.content = "";
+      if (this.type === "modify") this.$emit("cancle");
     },
-  },
-  watch: {
-    modifyNo() {
-      this.modifyChange = true;
-    },
-  },
-  beforeDestroy() {
-    if (this.modifyChange) this.SET_MODIFYNO(-1);
   },
 };
 </script>

@@ -17,14 +17,10 @@ const boardStore = {
     article: {},
     articles: [],
     totalRows: 0,
-    modifyNo: -1,
   },
   getters: {
     article(state) {
       return state.article;
-    },
-    modifyNo(state) {
-      return state.modifyNo;
     },
   },
   mutations: {
@@ -37,9 +33,6 @@ const boardStore = {
     SET_TOTAL_ROWS(state, totalRows) {
       state.totalRows = totalRows;
     },
-    SET_MODIFYNO(state, modifyNo) {
-      state.modifyNo = modifyNo;
-    },
   },
   actions: {
     async listArticle({ commit, dispatch }, params) {
@@ -50,7 +43,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
       await dispatch("getArticleCount", params);
     },
@@ -62,7 +55,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getArticle({ commit }, articleNo) {
@@ -73,7 +66,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async writeArticle(_, article) {
@@ -89,7 +82,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async modifyArticle(_, article) {
@@ -105,7 +98,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async deleteArticle(_, articleNo) {
@@ -121,7 +114,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async writeComment({ dispatch }, comment) {
@@ -137,7 +130,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async modifyComment({ dispatch }, comment) {
@@ -153,7 +146,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async deleteComment({ dispatch }, comment) {
@@ -169,7 +162,7 @@ const boardStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
   },
