@@ -1,4 +1,4 @@
-import { getSido, getGugun, getDong } from "@/api/apart";
+import { getSido, getGugun, getDong, getApartList, getApartInfo } from "@/api/apart";
 
 const apartStore = {
   namespaced: true,
@@ -6,6 +6,8 @@ const apartStore = {
     sidoList: [],
     gugunList: [],
     dongList: [],
+    apartList: [],
+    apartInfo: {},
   },
   mutations: {
     SET_SIDO_LIST(state, sidoList) {
@@ -20,6 +22,12 @@ const apartStore = {
     SET_DONG_LIST(state, dongList) {
       state.dongList = dongList;
     },
+    SET_APT_LIST(state, apartList) {
+      state.apartList = apartList;
+    },
+    SET_APT_INFO(state, apartInfo) {
+      state.apartInfo = apartInfo;
+    },
   },
   actions: {
     async getSidoList({ commit }) {
@@ -29,29 +37,52 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
-    async getGugunList({ commit }, sido) {
+    async getGugunList({ commit }, param) {
       await getGugun(
-        sido,
+        param,
         ({ data }) => {
           commit("SET_GUGUN_LIST", data);
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
-    async getDongList({ commit }, dong) {
+    async getDongList({ commit }, param) {
       await getDong(
-        dong,
+        param,
         ({ data }) => {
           commit("SET_DONG_LIST", data);
         },
         (error) => {
           console.log(error);
-        }
+        },
+      );
+    },
+    async getApartList({ commit }, param) {
+      await getApartList(
+        param,
+        ({ data }) => {
+          console.log(data);
+          commit("SET_APT_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async getApartInfo({ commit }, aptcode) {
+      await getApartInfo(
+        aptcode,
+        ({ data }) => {
+          commit("SET_APT_INFO", data);
+        },
+        (error) => {
+          console.log(error);
+        },
       );
     },
   },

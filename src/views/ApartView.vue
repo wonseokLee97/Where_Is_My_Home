@@ -6,19 +6,21 @@
     <!-- map -->
     <kakao-map></kakao-map>
     <!-- modal -->
-    <router-view></router-view>
+    <apart-info aptCode="11110000000001"></apart-info>
   </div>
 </template>
 
 <script>
 import KakaoMap from "@/components/apart/map/KakaoMap";
 import ApartSearch from "@/components/apart/ApartSearch";
+import ApartInfo from "@/components/apart/ApartInfo";
 
 export default {
   name: "ApartView",
   components: {
     KakaoMap,
     ApartSearch,
+    ApartInfo,
   },
 };
 </script>

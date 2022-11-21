@@ -1,18 +1,19 @@
 <template>
   <b-container class="bv-example-row">
     <b-form-select
-      v-model="sido"
+      v-model="dongInfo.sidoName"
       :options="sidoList"
       text-field="시도 목록"
-      @change="getGugunList"
+      @change="changeSido"
     ></b-form-select>
     <b-form-select
-      v-model="gugun"
+      v-model="dongInfo.gugunName"
       :options="gugunList"
       text-field="구군 목록"
-      @change="getDongList"
+      @change="changeGugun"
     ></b-form-select>
-    <b-form-select v-model="dong" :options="dongList" text-field="동 목록"></b-form-select>
+    <b-form-select v-model="dongInfo.dongName" :options="dongList" text-field="동 목록"></b-form-select>
+    <b-button @click="getApartList(dongInfo)">검색</b-button>
   </b-container>
 </template>
 
@@ -25,9 +26,11 @@ export default {
   name: "ApartSearch",
   data() {
     return {
-      sido: "",
-      gugun: "",
-      dong: "",
+      dongInfo: {
+        sidoName: "",
+        gugunName: "",
+        dongName: "",
+      },
     };
   },
   computed: {
@@ -37,12 +40,12 @@ export default {
     this.getSidoList();
   },
   methods: {
-    ...mapActions(apartStore, ["getSidoList", "getGugunList", "getDongList"]),
-    sidoChange() {
-      this.getGugunList(this.sido);
+    ...mapActions(apartStore, ["getSidoList", "getGugunList", "getDongList", "getApartList"]),
+    changeSido() {
+      this.getGugunList(this.dongInfo);
     },
-    gugunChange() {
-      this.getDongList(this.gugun);
+    changeGugun() {
+      this.getDongList(this.dongInfo);
     },
   },
 };

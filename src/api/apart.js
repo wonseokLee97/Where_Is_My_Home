@@ -6,12 +6,21 @@ async function getSido(success, fail) {
   api.get(`/home/sido`).then(success).catch(fail);
 }
 
-async function getGugun(sido, success, fail) {
-  api.get(`/home/gugun?sido=${sido}`).then(success).catch(fail);
+async function getGugun(param, success, fail) {
+  console.log(param);
+  api.get(`/home/gugun`, { params: param }).then(success).catch(fail);
 }
 
-async function getDong(gugun, success, fail) {
-  api.get(`/home/dong?gugun=${gugun}`).then(success).catch(fail);
+async function getDong(param, success, fail) {
+  api.get(`/home/dong`, { params: param }).then(success).catch(fail);
 }
 
-export { getSido, getGugun, getDong };
+async function getApartList(param, success, fail) {
+  api.get(`/home`, { params: param }).then(success).catch(fail);
+}
+
+async function getApartInfo(aptcode, success, fail) {
+  api.get(`/home/${aptcode}`).then(success).catch(fail);
+}
+
+export { getSido, getGugun, getDong, getApartList, getApartInfo };
