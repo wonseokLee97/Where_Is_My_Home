@@ -92,7 +92,6 @@ const apartStore = {
       );
     },
     async getApartListByLngLat({ commit }, param) {
-      console.log("ㅁ호출!");
       await getApartListByLngLat(
         param,
         ({ data }) => {

@@ -166,9 +166,9 @@ export default {
       // 클러스터러에 마커들을 추가합니다
       clusterer.addMarkers(clusterMarkers);
 
-      kakao.maps.event.addListener(clusterer, "clusterclick", function () {
-        this.zoom(clusterer);
-      });
+      // kakao.maps.event.addListener(clusterer, "clusterclick", function () {
+      //   this.zoom(clusterer);
+      // });
     },
 
     zoom(cluster) {

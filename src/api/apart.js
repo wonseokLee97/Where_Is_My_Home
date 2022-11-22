@@ -7,7 +7,6 @@ async function getSido(success, fail) {
 }
 
 async function getGugun(param, success, fail) {
-  console.log(param);
   api.get(`/home/gugun`, { params: param }).then(success).catch(fail);
 }
 

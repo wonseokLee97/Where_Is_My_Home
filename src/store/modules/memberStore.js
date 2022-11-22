@@ -1,10 +1,21 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout, regist, modify, deleteUser, findByName } from "@/api/member";
+import {
+  login,
+  idCheck,
+  findById,
+  tokenRegeneration,
+  logout,
+  regist,
+  modify,
+  deleteUser,
+  findByName,
+} from "@/api/member";
 
 const memberStore = {
   namespaced: true,
   state: {
+    isValidId: false,
     isValidate: false,
     isLogin: false,
     isLoginError: false,
@@ -20,6 +31,9 @@ const memberStore = {
     },
   },
   mutations: {
+    SET_IS_VALID_ID: (state, isValidId) => {
+      state.isValidId = isValidId;
+    },
     SET_IS_LOGIN: (state, isLogin) => {
       state.isLogin = isLogin;
     },
@@ -35,10 +49,21 @@ const memberStore = {
     },
     SET_USER_VALIDATE: (state, isValidate) => {
       state.isValidate = isValidate;
-    }
+    },
   },
-  
+
   actions: {
+    async idCheck({ commit }, userId) {
+      await idCheck(
+        userId,
+        ({ data }) => {
+          commit("SET_IS_VALID_ID", data == 0);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
     async userConfirm({ commit }, user) {
       await login(
         user,
@@ -59,7 +84,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getUserInfo({ commit, dispatch }, token) {
@@ -77,7 +102,7 @@ const memberStore = {
           console.log("getUserInfo() error code [토큰 만료] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
-        }
+        },
       );
     },
     async tokenRegeneration({ commit, state }) {
@@ -113,10 +138,10 @@ const memberStore = {
                 console.log(error);
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
-              }
+              },
             );
           }
-        }
+        },
       );
     },
     async userLogout({ commit }, userid) {
@@ -133,7 +158,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async registUser(_, user) {
@@ -147,14 +172,14 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
 
     async modifyUser({ commit }, user) {
       await modify(
         user,
-        ({data}) => {
+        ({ data }) => {
           if (data === "success") {
             alert("회원정보 수정 성공");
             commit("SET_USER_INFO", user);
@@ -163,14 +188,14 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        }
-      )
+        },
+      );
     },
 
     async deleteUser({ commit }, userid) {
       await deleteUser(
         userid,
-        ({data}) => {
+        ({ data }) => {
           if (data === "success") {
             alert("회원탈퇴 성공");
             commit("SET_USER_INFO", null);
@@ -179,11 +204,11 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        }
-      )
+        },
+      );
     },
 
-    async checkEmail({commit}, user) {
+    async checkEmail({ commit }, user) {
       await findByName(
         user,
         ({ data }) => {
@@ -191,15 +216,15 @@ const memberStore = {
           let msg = "이메일 혹은 이름을 찾을 수 없습니다..";
           if (data.message === "success") {
             msg = "해당 이메일로 비밀번호를 전송했습니다.";
-            commit("SET_USER_VALIDATE", user.userName)
+            commit("SET_USER_VALIDATE", user.userName);
           }
-          commit("SET_USER_VALIDATE", null)
+          commit("SET_USER_VALIDATE", null);
           alert(msg);
         },
         (error) => {
           console.log(error);
-        }
-      )
+        },
+      );
     },
 
     // async sendEmail(_, userEmail) {
@@ -214,7 +239,6 @@ const memberStore = {
     //     }
     //   )
     // }
-    
   },
 };
 

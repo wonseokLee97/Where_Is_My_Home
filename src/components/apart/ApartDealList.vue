@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>아파트 거래 정보 테이블</h3>
     <b-table responsive :items="apartDeals" :fields="fields" />
     <b-pagination
       align="center"

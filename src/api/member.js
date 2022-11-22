@@ -6,6 +6,10 @@ async function login(user, success, fail) {
   await api.post(`/user/login`, JSON.stringify(user)).then(success).catch(fail);
 }
 
+async function idCheck(userId, success, fail) {
+  await api.post(`/user/idcheck?userId=${userId}`).then(success).catch(fail);
+}
+
 async function findById(userid, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   await api.get(`/user/info/${userid}`).then(success).catch(fail);
@@ -33,9 +37,8 @@ async function deleteUser(userid, success, fail) {
 }
 
 async function findByName(user, success, fail) {
-  console.log(typeof(user));
+  console.log(typeof user);
   await api.post(`/user/email`, user).then(success).catch(fail);
 }
 
-export { login, findById, tokenRegeneration, logout, regist, modify, deleteUser, findByName };
-//
+export { login, idCheck, findById, tokenRegeneration, logout, regist, modify, deleteUser, findByName };
