@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 
 import "@/api/lib/vueBootstrap.js";
+import "@/api/lib/vueImports.js";
 
 Vue.config.productionTip = false;
 

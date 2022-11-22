@@ -105,7 +105,7 @@ export default {
       // 4. 지도 이동
       const bounds = positions.reduce(
         (bounds, position) => bounds.extend(position.latlng),
-        new kakao.maps.LatLngBounds(),
+        new kakao.maps.LatLngBounds()
       );
 
       this.map.setBounds(bounds);
@@ -204,6 +204,6 @@ export default {
 <style scoped>
 #map {
   width: 100%;
-  height: 700px;
+  height: 580px;
 }
 </style>

@@ -1,53 +1,37 @@
 <template>
   <b-row class="mb-1">
     <b-col style="text-align: left">
-      <b-form @submit="onSubmit" @list="moveList">
-        <b-form-group
-          id="userid-group"
-          label="작성자:"
-          label-for="userid"
-          description="작성자를 입력하세요."
-        >
-          <b-form-input
-            id="userid"
-            :disabled="true"
-            v-model="article.userId"
-            type="text"
-            required
-            placeholder="작성자 입력..."
-          ></b-form-input>
-        </b-form-group>
+      <b-form-group id="userid-group" label="작성자:" label-for="userid">
+        <b-form-input
+          id="userid"
+          :disabled="true"
+          v-model="article.userId"
+          type="text"
+          required
+        ></b-form-input>
+      </b-form-group>
 
-        <b-form-group
-          id="subject-group"
-          label="제목:"
-          label-for="subject"
-          description="제목을 입력하세요."
-        >
-          <b-form-input
-            id="subject"
-            v-model="article.subject"
-            type="text"
-            required
-            placeholder="제목 입력..."
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group id="content-group" label="내용:" label-for="content">
-          <b-form-textarea
-            id="content"
-            v-model="article.content"
-            placeholder="내용 입력..."
-            rows="10"
-            max-rows="15"
-          ></b-form-textarea>
-        </b-form-group>
-
-        <b-button type="submit" variant="secondary" class="m-1" v-if="this.type === 'register'"
-          >글작성</b-button
-        >
-        <b-button type="submit" variant="secondary" class="m-1" v-else>글수정</b-button>
-      </b-form>
+      <b-form-group id="subject-group" label="제목:" label-for="subject">
+        <b-form-input
+          id="subject"
+          v-model="article.subject"
+          type="text"
+          required
+          placeholder="제목 입력"
+        ></b-form-input>
+      </b-form-group>
+      <vue-editor v-model="article.content"></vue-editor>
+      <b-button
+        type="submit"
+        variant="secondary"
+        class="m-1"
+        @click="onSubmit"
+        v-if="this.type === 'register'"
+        >글작성</b-button
+      >
+      <b-button type="submit" variant="secondary" class="m-1" @click="onSubmit" v-else
+        >글수정</b-button
+      >
       <b-button type="list" @click="moveList" variant="light" class="m-1">글목록</b-button>
     </b-col>
   </b-row>
@@ -56,12 +40,16 @@
 <script>
 import store from "@/store";
 import { mapActions, mapState } from "vuex";
+import { VueEditor } from "vue2-editor";
 
 const memberStore = "memberStore";
 const boardStore = "boardStore";
 
 export default {
   name: "BoardInputItem",
+  components: {
+    VueEditor,
+  },
   data() {
     return {
       article: {

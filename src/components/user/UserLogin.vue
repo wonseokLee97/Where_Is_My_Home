@@ -1,10 +1,10 @@
 <template>
   <b-container class="bv-example-row mt-3">
-        <br>
-        <div>
-          <h3>로그인</h3>
-        </div>
-        <hr>
+    <br />
+    <div>
+      <h3>로그인</h3>
+    </div>
+    <hr />
     <b-row>
       <b-col></b-col>
       <b-col cols="6">
@@ -19,7 +19,7 @@
                 ref="userid"
                 v-model="user.userId"
                 required
-                placeholder="아이디 입력...."
+                placeholder="아이디 입력"
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
@@ -30,16 +30,20 @@
                 ref="userpwd"
                 v-model="user.userPwd"
                 required
-                placeholder="비밀번호 입력...."
+                placeholder="비밀번호 입력"
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-            <b-button type="button" variant="secondary" class="m-1" @click="confirm"
-              >로그인</b-button
-            >
-            <b-button type="button" variant="dark" class="m-1" @click="moveJoin">회원가입</b-button>
-            <hr>
-            <b-button type="button" variant="light" class="m-1" @click="moveFindpw">비밀번호 찾기</b-button>
+            <b-button type="button" variant="secondary" class="m-1" @click="confirm">
+              로그인
+            </b-button>
+            <b-button type="button" variant="light" class="m-1" @click="moveFindpw">
+              비밀번호 찾기
+            </b-button>
+            <hr />
+            <b-button type="button" variant="dark" class="m-1" @click="moveJoin">
+              회원가입
+            </b-button>
           </b-form>
         </b-card>
       </b-col>

@@ -61,7 +61,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async userConfirm({ commit }, user) {
@@ -84,7 +84,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getUserInfo({ commit, dispatch }, token) {
@@ -102,7 +102,7 @@ const memberStore = {
           console.log("getUserInfo() error code [토큰 만료] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
-        },
+        }
       );
     },
     async tokenRegeneration({ commit, state }) {
@@ -128,7 +128,7 @@ const memberStore = {
                 } else {
                   console.log("리프레시 토큰 제거 실패");
                 }
-                alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
+                alert("로그인 만료! 다시 로그인해 주세요.");
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
                 commit("SET_IS_VALID_TOKEN", false);
@@ -138,10 +138,10 @@ const memberStore = {
                 console.log(error);
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
-              },
+              }
             );
           }
-        },
+        }
       );
     },
     async userLogout({ commit }, userid) {
@@ -158,7 +158,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async registUser(_, user) {
@@ -172,7 +172,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
 
@@ -188,7 +188,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
 
@@ -204,7 +204,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
 
@@ -213,7 +213,7 @@ const memberStore = {
         user,
         ({ data }) => {
           console.log(data);
-          let msg = "이메일 혹은 이름을 찾을 수 없습니다..";
+          let msg = "이메일 혹은 이름을 찾을 수 없습니다.";
           if (data.message === "success") {
             msg = "해당 이메일로 비밀번호를 전송했습니다.";
             commit("SET_USER_VALIDATE", user.userName);
@@ -223,7 +223,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
 

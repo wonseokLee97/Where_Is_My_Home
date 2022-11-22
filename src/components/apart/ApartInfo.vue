@@ -10,21 +10,23 @@
     header-close-content="x"
     title-html="아파트 정보"
   >
-    <a name="home"></a>
+    <div v-bar class="word-box">
+      <div>
+        <a name="home"></a>
 
-    <apart-info-nav />
-    <h3><a name="loadview">로드뷰</a></h3>
-    <kakao-load-view :road="apartInfo" />
-    <hr />
+        <apart-info-nav />
+        <h3><a name="loadview">로드뷰</a></h3>
+        <kakao-load-view :road="apartInfo" />
+        <hr />
 
-    <h3><a name="info">아파트 정보</a></h3>
-    <b-table stacked :items="[apartInfo]" :fields="fields" />
-    <hr />
+        <h3><a name="info">아파트 정보</a></h3>
+        <b-table stacked :items="[apartInfo]" :fields="fields" />
+        <hr />
 
-    <h3><a name="list">거래 내역</a></h3>
-    <apart-deal-list :aptCode="aptCode" />
-
-    <b-button class="mt-3" variant="outline-danger" block @click="hideModal"> Close </b-button>
+        <h3><a name="list">거래 내역</a></h3>
+        <apart-deal-list :aptCode="aptCode" />
+      </div>
+    </div>
   </b-modal>
 </template>
 
@@ -74,4 +76,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.word-box {
+  text-align: center;
+  height: 580px;
+  background-size: 100%;
+  font-size: 15px;
+}
+</style>

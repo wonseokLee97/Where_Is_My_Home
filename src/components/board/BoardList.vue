@@ -1,6 +1,6 @@
 <template>
   <div>
-    <board-serach @search="search"></board-serach>
+    <board-search @search="search"></board-search>
     <br />
     <div>
       <b-table responsive :items="articles" :fields="fields">
@@ -26,20 +26,20 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import BoardSerach from "./search/BoardSerach.vue";
+import BoardSearch from "./search/BoardSearch.vue";
 
 const boardStore = "boardStore";
 
 export default {
   name: "BoardList",
   components: {
-    BoardSerach,
+    BoardSearch,
   },
   data() {
     return {
       params: {
         pg: 1,
-        spp: 1,
+        spp: 10,
         start: 1,
         key: null,
         word: null,

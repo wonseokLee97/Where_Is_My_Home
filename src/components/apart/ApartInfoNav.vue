@@ -21,7 +21,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .sticky {
   position: sticky;
   top: 0px;
