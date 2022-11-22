@@ -19,6 +19,10 @@ async function getApartList(param, success, fail) {
   api.get(`/home`, { params: param }).then(success).catch(fail);
 }
 
+async function getApartListByLngLat(param, success, fail) {
+  api.get(`/home/lnglat`, { params: param }).then(success).catch(fail);
+}
+
 async function getApartInfo(aptcode, success, fail) {
   api.get(`/home/${aptcode}`).then(success).catch(fail);
 }
@@ -31,4 +35,13 @@ async function getApartDealCount(aptCode, success, fail) {
   api.get(`/home/deal/count/${aptCode}`).then(success).catch(fail);
 }
 
-export { getSido, getGugun, getDong, getApartList, getApartInfo, getApartDeals, getApartDealCount };
+export {
+  getSido,
+  getGugun,
+  getDong,
+  getApartList,
+  getApartInfo,
+  getApartListByLngLat,
+  getApartDeals,
+  getApartDealCount,
+};

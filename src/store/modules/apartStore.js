@@ -1,4 +1,13 @@
-import { getSido, getGugun, getDong, getApartList, getApartInfo, getApartDeals, getApartDealCount } from "@/api/apart";
+import {
+  getSido,
+  getGugun,
+  getDong,
+  getApartList,
+  getApartInfo,
+  getApartListByLngLat,
+  getApartDeals,
+  getApartDealCount,
+} from "@/api/apart";
 
 const apartStore = {
   namespaced: true,
@@ -72,6 +81,17 @@ const apartStore = {
     },
     async getApartList({ commit }, param) {
       await getApartList(
+        param,
+        ({ data }) => {
+          commit("SET_APT_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async getApartListByLngLat({ commit }, param) {
+      await getApartListByLngLat(
         param,
         ({ data }) => {
           commit("SET_APT_LIST", data);
