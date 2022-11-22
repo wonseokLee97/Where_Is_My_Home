@@ -136,10 +136,6 @@ export default {
         });
       });
 
-      markers.forEach((marker) => {
-        console.log(marker);
-      });
-
       const getMap = this.map;
       markers.forEach((marker) => {
         var iwContent = `<div style="padding:5px;">${marker.marker.getTitle()}</div>`;
@@ -150,7 +146,6 @@ export default {
         });
 
         kakao.maps.event.addListener(marker.marker, "click", function () {
-          // console.log(marker);
           infowindow.open(getMap, marker.marker);
           alert(marker.code);
         });
@@ -160,10 +155,6 @@ export default {
         clusterMarkers.push(marker.marker);
       });
 
-      // clusterMarkers.forEach((m) => {
-      //   console.log(m);
-      // });
-
       // 클러스터러에 마커들을 추가합니다
       clusterer.addMarkers(clusterMarkers);
 
@@ -171,25 +162,6 @@ export default {
         this.zoom(clusterer);
       });
     },
-
-    // loadDragList() {
-    //   console.log("호출!");
-    //   // console.log(this.map.getBounds());
-    //   var latlng = this.map.getBounds();
-
-    //   this.latlng.slat = latlng.getSouthWest().getLat();
-    //   this.latlng.slng = latlng.getSouthWest().getLng();
-    //   this.latlng.elat = latlng.getNorthEast().getLat();
-    //   this.latlng.elng = latlng.getNorthEast().getLng();
-    //   // console.log("=== south west ===");
-    //   // console.log(latlng.getSouthWest().getLat());
-    //   // console.log(latlng.getSouthWest().getLng());
-
-    //   // console.log("=== North East ===");
-    //   // console.log(latlng.getNorthEast().getLat());
-    //   // console.log(latlng.getNorthEast().getLng());
-    //   this.getApartListByLngLat(this.latlng);
-    // },
 
     zoom(cluster) {
       // 현재 지도 레벨에서 1레벨 확대한 레벨
@@ -224,35 +196,3 @@ export default {
   height: 700px;
 }
 </style>
-
-<!-- // // 3. 마커 표시하기
-      // positions.forEach((position) => {
-      //   // console.log(position);
-
-      //   const infowindow = new kakao.maps.InfoWindow({
-      //     removable: true,
-      //     content: `
-      //       <div style="padding:5px;">
-      //         위치: 서울특별시<br>
-      //         아파트명: ${position.title}
-      //       </div>
-      //       `,
-      //   });
-
-      //   const marker = new kakao.maps.Marker({
-      //     map: this.map,
-      //     position: position.latlng,
-      //     title: position.title,
-      //     image: markerImage,
-      //   });
-
-      //   kakao.maps.event.addListener(marker, "mouseover", () => {
-      //     infowindow.open(this.map, marker);
-      //   });
-
-      //   kakao.maps.event.addListener(marker, "mouseout", () => {
-      //     infowindow.close(this.map, marker);
-      //   });
-
-      //   this.markers.push(marker);
-      // }); -->
