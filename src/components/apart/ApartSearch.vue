@@ -6,13 +6,7 @@
       text-field="시도 목록"
       @change="changeSido"
     ></b-form-select>
-    <b-form-select
-      v-model="dongInfo.gugunName"
-      :options="gugunList"
-      text-field="구군 목록"
-      @change="changeGugun"
-    ></b-form-select>
-    <b-form-select v-model="dongInfo.dongName" :options="dongList" text-field="동 목록"></b-form-select>
+    <b-form-select v-model="dongInfo.gugunName" :options="gugunList" text-field="구군 목록"></b-form-select>
     <b-button @click="getApartList(dongInfo)">검색</b-button>
   </b-container>
 </template>
@@ -29,18 +23,17 @@ export default {
       dongInfo: {
         sidoName: "",
         gugunName: "",
-        dongName: "",
       },
     };
   },
   computed: {
-    ...mapState(apartStore, ["sidoList", "gugunList", "dongList"]),
+    ...mapState(apartStore, ["sidoList", "gugunList"]),
   },
   created() {
     this.getSidoList();
   },
   methods: {
-    ...mapActions(apartStore, ["getSidoList", "getGugunList", "getDongList", "getApartList"]),
+    ...mapActions(apartStore, ["getSidoList", "getGugunList", "getApartList"]),
     changeSido() {
       this.getGugunList(this.dongInfo);
     },
