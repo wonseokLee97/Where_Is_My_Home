@@ -145,9 +145,16 @@ export default {
           removable: iwRemoveable,
         });
 
+        kakao.maps.event.addListener(marker.marker, "mouseover", function () {
+          infowindow.open(getMap, marker.marker);
+        });
+
+        kakao.maps.event.addListener(marker.marker, "mouseout", function () {
+          infowindow.close();
+        });
+
         const click = this.click;
         kakao.maps.event.addListener(marker.marker, "click", function () {
-          infowindow.open(getMap, marker.marker);
           click(marker.code);
         });
       });
