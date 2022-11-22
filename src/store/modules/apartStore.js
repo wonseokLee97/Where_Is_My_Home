@@ -84,6 +84,7 @@ const apartStore = {
         param,
         ({ data }) => {
           commit("SET_APT_LIST", data);
+          if (!data) commit("SET_APT_LIST", param.sidoName + param.gugunName + param.dongName);
         },
         (error) => {
           console.log(error);
