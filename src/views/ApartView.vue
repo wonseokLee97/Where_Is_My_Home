@@ -4,11 +4,10 @@
     <!-- search bar -->
     <apart-search></apart-search>
     <!-- map -->
-    <kakao-map></kakao-map>
+    <kakao-map @click="showModal"></kakao-map>
     <!-- modal -->
-    <button @click="showModal">버튼</button>
     <template v-if="modal">
-      <apart-info aptCode="11110000000002" @closeModal="closeModal"></apart-info>
+      <apart-info :aptCode="aptCode" @closeModal="closeModal"></apart-info>
     </template>
   </div>
 </template>
@@ -23,6 +22,7 @@ export default {
   data() {
     return {
       modal: false,
+      aptCode: "",
     };
   },
   components: {
@@ -31,11 +31,13 @@ export default {
     ApartInfo,
   },
   methods: {
-    showModal() {
+    showModal(aptCode) {
       this.modal = true;
+      this.aptCode = aptCode;
     },
     closeModal() {
       this.modal = false;
+      this.aptCode = "";
     },
   },
 };

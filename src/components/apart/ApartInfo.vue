@@ -1,9 +1,10 @@
 <template>
-  <b-modal id="modal-lg" size="lg" ref="my-modal" hide-footer title="아파트 정보">
+  <b-modal id="modal-xl" size="xl" ref="my-modal" hide-footer title="아파트 정보">
+    <apart-info-nav />
     <h3>아파트 정보</h3>
-    <kakao-load-view :road="apartInfo" />
-    <b-table stacked :items="[apartInfo]" :fields="fields" />
-    <apart-deal-list :aptCode="aptCode" />
+    <a name="loadview"><kakao-load-view :road="apartInfo" /></a>
+    <a name="ingo"><b-table stacked :items="[apartInfo]" :fields="fields" /></a>
+    <a name="list"><apart-deal-list :aptCode="aptCode" /></a>
     <b-button class="mt-3" variant="outline-danger" block @click="hideModal"> Close </b-button>
   </b-modal>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import ApartDealList from "./ApartDealList";
+import ApartInfoNav from "./ApartInfoNav";
 import KakaoLoadView from "./map/KakaoLoadView";
 
 const apartStore = "apartStore";
@@ -19,6 +21,7 @@ export default {
   components: {
     ApartDealList,
     KakaoLoadView,
+    ApartInfoNav,
   },
   name: "AptInfo",
   data() {
@@ -52,4 +55,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.modal-body {
+  height: 85vh;
+  overflow-y: auto;
+}
+</style>

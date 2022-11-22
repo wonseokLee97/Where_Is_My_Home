@@ -34,7 +34,6 @@ export default {
       var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
 
       //지도를 생성할 때 필요한 기본 옵션
-      console.log(this.road);
       var position = new kakao.maps.LatLng(this.road.lat, this.road.lng); //지도의 중심좌표.
 
       roadviewClient.getNearestPanoId(position, 50, function (panoId) {

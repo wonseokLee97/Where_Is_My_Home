@@ -5,6 +5,7 @@
       :options="sidoList"
       text-field="시도 목록"
       @change="changeSido"
+      prepend
     ></b-form-select>
     <b-form-select v-model="dongInfo.gugunName" :options="gugunList" text-field="구군 목록"></b-form-select>
     <b-button @click="getApartList(dongInfo)">검색</b-button>
@@ -44,4 +45,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.custom-select {
+  width: 30%;
+  margin: 10px;
+}
+</style>
