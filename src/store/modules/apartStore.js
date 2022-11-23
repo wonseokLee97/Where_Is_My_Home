@@ -8,6 +8,10 @@ import {
   getApartDeals,
   getStoreInfo,
   getStoreList,
+  getFavoriteApts,
+  checkFavoriteApt,
+  addFavoriteApt,
+  removeFavoriteApt,
 } from "@/api/apart";
 
 const apartStore = {
@@ -22,6 +26,8 @@ const apartStore = {
     totalRows: 0,
     storeInfo: [],
     storeList: [],
+    isFavoriteApt: false,
+    favoriteApts: [],
   },
   mutations: {
     SET_SIDO_LIST(state, sidoList) {
@@ -54,6 +60,12 @@ const apartStore = {
     SET_STORE_LIST(state, storeList) {
       state.storeList = storeList;
     },
+    SET_IS_FAVORITE_APT(state, isFavoriteApt) {
+      state.isFavoriteApt = isFavoriteApt;
+    },
+    SET_FAVORITE_APTS(state, favoriteApts) {
+      state.favoriteApts = favoriteApts;
+    },
   },
   actions: {
     async getSidoList({ commit }) {
@@ -63,7 +75,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getGugunList({ commit }, param) {
@@ -74,7 +86,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getDongList({ commit }, param) {
@@ -85,7 +97,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getApartList({ commit }, param) {
@@ -93,11 +105,12 @@ const apartStore = {
         param,
         ({ data }) => {
           commit("SET_APT_LIST", data);
-          if (!data) commit("SET_APT_LIST", param.sidoName + " " + param.gugunName + " " + param.dongName);
+          if (!data)
+            commit("SET_APT_LIST", param.sidoName + " " + param.gugunName + " " + param.dongName);
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getApartListByLngLat({ commit }, param) {
@@ -108,7 +121,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getApartInfo({ commit }, aptcode) {
@@ -119,7 +132,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getApartDeals({ commit }, aptCode) {
@@ -136,7 +149,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getStoreInfo({ commit }, param) {
@@ -148,7 +161,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     },
     async getStoreList({ commit }, param) {
@@ -159,9 +172,56 @@ const apartStore = {
           if (!data) commit("SET_STORE_LIST", []);
         },
         (error) => {
-          console.log("error = ", error);
-        },
+          console.log(error);
+        }
       );
+    },
+    async getFavoriteApts({ commit }, userId) {
+      await getFavoriteApts(
+        userId,
+        ({ data }) => {
+          commit("SET_FAVORITE_APTS", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    async checkFavoriteApt({ commit }, param) {
+      await checkFavoriteApt(
+        param,
+        ({ data }) => {
+          commit("SET_IS_FAVORITE_APT", data == 1);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    async addFavoriteApt({ commit, dispatch }, param) {
+      console.log(param);
+      await addFavoriteApt(
+        param,
+        () => {
+          commit("SET_IS_FAVORITE_APT", true);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      await dispatch("getFavoriteApts", param.userId);
+    },
+    async removeFavoriteApt({ commit, dispatch }, param) {
+      await removeFavoriteApt(
+        param,
+        () => {
+          commit("SET_IS_FAVORITE_APT", false);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      await dispatch("getFavoriteApts", param.userId);
     },
   },
 };

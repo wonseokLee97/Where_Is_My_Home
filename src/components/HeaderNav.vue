@@ -12,6 +12,7 @@
           </b-nav-item-dropdown>
           <template v-if="userInfo">
             <b-nav-item @click="mypage">Mypage</b-nav-item>
+            <b-nav-item @click="favoriteApts">관심아파트</b-nav-item>
             <b-nav-item @click="logout">Logout</b-nav-item>
           </template>
           <template v-else>
@@ -39,6 +40,9 @@ export default {
     ...mapActions(memberStore, ["userLogout"]),
     mypage() {
       this.$router.push({ name: "mypage" });
+    },
+    favoriteApts() {
+      this.$router.push({ name: "favoriteapt" });
     },
     logout() {
       this.userLogout(this.userInfo.userId);

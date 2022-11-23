@@ -43,6 +43,7 @@ const routes = [
   {
     path: "/mypage",
     name: "mypage",
+    beforeEnter: onlyAuthUser,
     component: () => import("@/components/user/UserMypage"),
   },
   {
@@ -53,9 +54,15 @@ const routes = [
   {
     path: "/qna",
     name: "qna",
+    beforeEnter: onlyAuthUser,
     component: () => import("@/components/qna/QnaView"),
   },
-
+  {
+    path: "/favoriteapt",
+    name: "favoriteapt",
+    beforeEnter: onlyAuthUser,
+    component: () => import("@/components/user/FavoriteAptList"),
+  },
   {
     path: "/board",
     name: "board",

@@ -38,6 +38,22 @@ async function getStoreList(param, success, fail) {
   await api.get(`/home/storelist`, { params: param }).then(success).catch(fail);
 }
 
+async function getFavoriteApts(userId, success, fail) {
+  await api.get(`/home/favoriteapt/${userId}`).then(success).catch(fail);
+}
+
+async function checkFavoriteApt(param, success, fail) {
+  await api.get(`/home/favoriteapt`, { params: param }).then(success).catch(fail);
+}
+
+async function addFavoriteApt(param, success, fail) {
+  await api.post(`/home/favoriteapt`, param).then(success).catch(fail);
+}
+
+async function removeFavoriteApt(param, success, fail) {
+  await api.delete(`/home/favoriteapt`, { params: param }).then(success).catch(fail);
+}
+
 export {
   getSido,
   getGugun,
@@ -48,4 +64,8 @@ export {
   getApartDeals,
   getStoreInfo,
   getStoreList,
+  getFavoriteApts,
+  checkFavoriteApt,
+  addFavoriteApt,
+  removeFavoriteApt,
 };
