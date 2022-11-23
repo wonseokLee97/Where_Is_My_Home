@@ -44,17 +44,6 @@ export default {
   computed: {
     ...mapState(apartStore, ["apartInfo", "storeInfo", "storeList"]),
   },
-  watch: {
-    async distance() {
-      //   let param = {
-      //     lng: this.apartInfo.lng,
-      //     lat: this.apartInfo.lat,
-      //     distance: this.distance / 1000,
-      //   };
-      //   await this.getStoreInfo(param);
-      //   await this.getStoreList(param);
-    },
-  },
   methods: {
     ...mapMutations(apartStore, ["SET_STORE_INFO", "SET_STORE_LIST"]),
     ...mapActions(apartStore, ["getStoreInfo", "getStoreList"]),

@@ -1,25 +1,33 @@
 <template>
   <div>
-    <b-table responsive :items="apartDeals" :fields="fields" />
-    <b-pagination
-      align="center"
-      v-model="params.pg"
-      pills
-      :total-rows="totalRows"
-      :per-page="params.spp"
-      class="customPagination"
-      @change="pageClick"
-    />
+    <b-row class="text-center">
+      <b-col md="5">
+        <apart-deal-chart />
+      </b-col>
+      <b-col md="7">
+        <b-table responsive :items="apartDeals" :current-page="params.pg" :per-page="params.spp" :fields="fields" />
+        <b-pagination
+          align="center"
+          v-model="params.pg"
+          pills
+          :total-rows="totalRows"
+          :per-page="params.spp"
+          @change="pageClick"
+        />
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import ApartDealChart from "./ApartDealChart.vue";
 
 const apartStore = "apartStore";
 
 export default {
   name: "ApartDealList",
+  components: { ApartDealChart },
   data() {
     return {
       params: {
@@ -43,23 +51,14 @@ export default {
   computed: {
     ...mapState(apartStore, ["apartDeals", "totalRows"]),
   },
-  created() {
-    const searchParam = {
-      aptCode: this.aptCode,
-      params: this.params,
-    };
-    this.getApartDeals(searchParam);
+  async created() {
+    await this.getApartDeals(this.aptCode);
   },
   methods: {
     ...mapActions(apartStore, ["getApartDeals"]),
     pageClick(page) {
       this.params.pg = page;
       this.params.start = (this.params.pg - 1) * this.params.spp;
-      const searchParam = {
-        aptCode: this.aptCode,
-        params: this.params,
-      };
-      this.getApartDeals(searchParam);
     },
   },
 };

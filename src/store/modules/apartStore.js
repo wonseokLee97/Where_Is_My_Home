@@ -6,7 +6,6 @@ import {
   getApartInfo,
   getApartListByLngLat,
   getApartDeals,
-  getApartDealCount,
   getStoreInfo,
   getStoreList,
 } from "@/api/apart";
@@ -123,23 +122,17 @@ const apartStore = {
         },
       );
     },
-    async getApartDeals({ commit, dispatch }, searchParam) {
+    async getApartDeals({ commit }, aptCode) {
       await getApartDeals(
-        searchParam,
-        ({ data }) => {
-          commit("SET_APT_DEALS", data);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
-      await dispatch("getApartDealCount", searchParam.aptCode);
-    },
-    async getApartDealCount({ commit }, aptCode) {
-      await getApartDealCount(
         aptCode,
         ({ data }) => {
-          commit("SET_TOTAL_ROWS", data);
+          if (data) {
+            commit("SET_APT_DEALS", data);
+            commit("SET_TOTAL_ROWS", data.length);
+          } else {
+            commit("SET_APT_DEALS", []);
+            commit("SET_TOTAL_ROWS", 0);
+          }
         },
         (error) => {
           console.log(error);
@@ -151,6 +144,7 @@ const apartStore = {
         param,
         ({ data }) => {
           commit("SET_STORE_INFO", data);
+          if (!data) commit("SET_STORE_INFO", []);
         },
         (error) => {
           console.log(error);
@@ -162,6 +156,7 @@ const apartStore = {
         param,
         ({ data }) => {
           commit("SET_STORE_LIST", data);
+          if (!data) commit("SET_STORE_LIST", []);
         },
         (error) => {
           console.log("error = ", error);

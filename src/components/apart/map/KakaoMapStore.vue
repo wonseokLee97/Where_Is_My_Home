@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ storeList }}
+    <!-- {{ storeList }} -->
   </div>
 </template>
 

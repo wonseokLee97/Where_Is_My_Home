@@ -1,10 +1,18 @@
 <template>
   <div class="home">
-    <br>
-    <hr>
+    <br />
+    <hr />
     <h1>Where is My Home?</h1>
-    <hr>
+    <apart-deal-chart></apart-deal-chart>
+    <hr />
   </div>
 </template>
 
-<script></script>
+<script>
+import ApartDealChart from "@/components/apart/ApartDealChart.vue";
+export default {
+  components: {
+    ApartDealChart,
+  },
+};
+</script>

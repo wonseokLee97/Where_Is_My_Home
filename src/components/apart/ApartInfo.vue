@@ -25,6 +25,7 @@
 
         <h3><a name="store">상권 정보</a></h3>
         <store-info />
+        <hr />
 
         <h3><a name="list">거래 내역</a></h3>
         <apart-deal-list :aptCode="aptCode" />
@@ -65,8 +66,8 @@ export default {
   computed: {
     ...mapState(apartStore, ["apartInfo"]),
   },
-  created() {
-    this.getApartInfo(this.aptCode);
+  async created() {
+    await this.getApartInfo(this.aptCode);
   },
   methods: {
     ...mapActions(apartStore, ["getApartInfo"]),

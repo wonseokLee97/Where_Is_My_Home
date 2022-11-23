@@ -26,12 +26,8 @@ async function getApartInfo(aptcode, success, fail) {
   api.get(`/home/${aptcode}`).then(success).catch(fail);
 }
 
-async function getApartDeals(searchParam, success, fail) {
-  api.get(`/home/deal/${searchParam.aptCode}`, { params: searchParam.params }).then(success).catch(fail);
-}
-
-async function getApartDealCount(aptCode, success, fail) {
-  api.get(`/home/deal/count/${aptCode}`).then(success).catch(fail);
+async function getApartDeals(aptCode, success, fail) {
+  api.get(`/home/deal/${aptCode}`).then(success).catch(fail);
 }
 
 async function getStoreInfo(param, success, fail) {
@@ -50,7 +46,6 @@ export {
   getApartInfo,
   getApartListByLngLat,
   getApartDeals,
-  getApartDealCount,
   getStoreInfo,
   getStoreList,
 };
