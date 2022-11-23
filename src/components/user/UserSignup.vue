@@ -1,15 +1,17 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <br />
-    <div>
-      <h3>회원가입</h3>
-    </div>
-    <hr />
     <b-row>
       <b-col></b-col>
       <b-col cols="6">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form @submit="doRegist" class="text-left">
+            <br />
+            <div>
+              <h4>회원가입</h4>
+            </div>
+            <hr />
+            <br />
             <b-form-group label="아이디:" label-for="userid">
               <!-- <b-form-input
                     :state = "idState"

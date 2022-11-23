@@ -1,18 +1,18 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <br />
-    <div>
-      <h3>로그인</h3>
-    </div>
-    <hr />
     <b-row>
       <b-col></b-col>
       <b-col cols="6">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form class="text-left">
-            <b-alert show variant="danger" v-if="isLoginError"
-              >아이디 또는 비밀번호를 확인하세요.</b-alert
-            >
+            <br />
+            <div>
+              <h4>로그인</h4>
+            </div>
+            <hr />
+            <br />
+            <b-alert show variant="danger" v-if="isLoginError">아이디 또는 비밀번호를 확인하세요.</b-alert>
             <b-form-group label="아이디:" label-for="userid">
               <b-form-input
                 id="userid"
@@ -34,16 +34,10 @@
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-            <b-button type="button" variant="secondary" class="m-1" @click="confirm">
-              로그인
-            </b-button>
-            <b-button type="button" variant="light" class="m-1" @click="moveFindpw">
-              비밀번호 찾기
-            </b-button>
+            <b-button type="button" variant="secondary" class="m-1" @click="confirm"> 로그인 </b-button>
+            <b-button type="button" variant="light" class="m-1" @click="moveFindpw"> 비밀번호 찾기 </b-button>
             <hr />
-            <b-button type="button" variant="dark" class="m-1" @click="moveJoin">
-              회원가입
-            </b-button>
+            <b-button type="button" variant="dark" class="m-1" @click="moveJoin"> 회원가입 </b-button>
           </b-form>
         </b-card>
       </b-col>
