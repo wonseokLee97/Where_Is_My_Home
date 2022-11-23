@@ -7,7 +7,7 @@ async function login(user, success, fail) {
 }
 
 async function idCheck(userId, success, fail) {
-  await api.post(`/user/idcheck?userId=${userId}`).then(success).catch(fail);
+  await api.get(`/user/idcheck?userId=${userId}`).then(success).catch(fail);
 }
 
 async function findById(userid, success, fail) {

@@ -24,13 +24,17 @@
                 ref="userid"
                 v-model="user.userId"
                 :state="idState"
-                aria-describedby="input-live-help input-live-feedback"
+                aria-describedby="input-live-idValidate input-live-feedback"
                 required
                 placeholder="아이디"
                 trim
               ></b-form-input>
 
-              <b-form-invalid-feedback id="input-live-feedback">
+              <b-form-invalid-feedback v-if="this.ready" id="input-live-feedback">
+                중복아이디 입니다!
+              </b-form-invalid-feedback>
+
+              <b-form-invalid-feedback v-else id="input-live-idValidate">
                 아이디는 6자 이상 입력하세요.
               </b-form-invalid-feedback>
             </b-form-group>
@@ -42,20 +46,39 @@
                 v-model="user.userName"
                 required
                 placeholder="이름"
-                @keyup.enter="confirm"
+                @keyup.enter="onChange"
               />
             </b-form-group>
             <b-form-group label="비밀번호:" label-for="userpwd">
               <b-form-input
-                type="text"
+                type="password"
                 id="userpwd"
                 ref="userpwd"
                 v-model="user.userPwd"
                 required
                 placeholder="비밀번호"
-                @keyup.enter="confirm"
+                trim
+                @keyup.enter="onChange"
               />
             </b-form-group>
+            <b-form-group label="비밀번호 확인:" label-for="userpwd">
+              <b-form-input
+                id="userPwdCheck"
+                ref="userPwdCheck"
+                v-model="user.userPwdCheck"
+                :state="pwState"
+                aria-describedby="input-live-help input-live-feedback"
+                required
+                placeholder="비밀번호 확인"
+                trim
+                @keyup.enter="onChange"
+              />
+
+              <b-form-invalid-feedback id="input-live-feedback">
+                비밀번호가 일치하지 않습니다!
+              </b-form-invalid-feedback>
+            </b-form-group>
+
             <b-form-group label="이메일:" label-for="emailid">
               <b-form-input
                 type="text"
@@ -64,7 +87,7 @@
                 v-model="user.emailId"
                 required
                 placeholder="이메일 아이디"
-                @keyup.enter="confirm"
+                @keyup.enter="onChange"
               />
               <span>@</span>
               <b-form-select v-model="user.emailDomain" @change="onChange($event)" class="mb-3">
@@ -84,7 +107,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 const memberStore = "memberStore";
 
 export default {
@@ -92,10 +115,13 @@ export default {
     return {
       check: {
         idCheck: false,
+        ready: false,
+        pwCheck: false,
       },
       user: {
         userId: "",
         userPwd: null,
+        userPwdCheck: null,
         userName: null,
         emailId: null,
         emailDomain: "gmail.com",
@@ -105,30 +131,81 @@ export default {
   },
 
   methods: {
-    ...mapActions(memberStore, ["registUser"]),
+    ...mapActions(memberStore, ["registUser", "idCheck"]),
     onChange(event) {
       console.log("==" + event + "==");
     },
     doRegist(event) {
       event.preventDefault();
-      this.registUser(this.user);
-      // console.log(this.user);
-      // this.registUser(this.user);
+
+      if (this.user.userId.length < 6) {
+        alert("아이디 형식이 올바르지 않습니다!");
+      } else if (!this.isValidId) {
+        alert("아이디가 중복입니다!");
+      } else if (!this.pwCheck) {
+        alert("비밀번호 확인이 올바르지 않습니다!");
+      } else {
+        this.registUser(this.user);
+      }
+    },
+    onReady() {
+      this.ready = true;
+    },
+    notReady() {
+      this.ready = false;
+    },
+    doValidate() {
+      this.idCheck(this.user.userId);
+    },
+    pwOnReady() {
+      this.pwCheck = true;
+    },
+    pwNotReady() {
+      this.pwCheck = false;
     },
   },
 
   computed: {
+    ...mapState(memberStore, ["isValidId"]),
+
     idState() {
-      return this.user.userId.length >= 6 ? true : false;
-      // if (this.user.userId == "") {
-      //     return null;
-      // } else if (this.user.userId.length >= 6){
-      //     return true;
-      // } else {
-      //     return false;
-      // }
+      if (this.user.userId.length >= 6) {
+        // validation 준비완료
+        this.onReady();
+        // 1. idCheck 실행
+        this.doValidate();
+
+        // 2. 중복 아이디가 없다면?
+        if (this.isValidId) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (this.user.userId.length == 0) {
+        this.notReady();
+        return null;
+      } else {
+        this.notReady();
+        return false;
+      }
+    },
+
+    pwState() {
+      if (this.user.userPwdCheck == null) {
+        console.log("비밀번호가 비었음!");
+        return null;
+      }
+      if (this.user.userPwd === this.user.userPwdCheck) {
+        this.pwOnReady();
+        return true;
+      } else {
+        this.pwNotReady();
+        return false;
+      }
     },
   },
+
+  watch: {},
 };
 //
 </script>
