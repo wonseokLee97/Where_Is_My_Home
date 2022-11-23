@@ -34,6 +34,14 @@ async function getApartDealCount(aptCode, success, fail) {
   api.get(`/home/deal/count/${aptCode}`).then(success).catch(fail);
 }
 
+async function getStoreInfo(param, success, fail) {
+  await api.get(`/home/storeinfo`, { params: param }).then(success).catch(fail);
+}
+
+async function getStoreList(param, success, fail) {
+  await api.get(`/home/storelist`, { params: param }).then(success).catch(fail);
+}
+
 export {
   getSido,
   getGugun,
@@ -43,4 +51,6 @@ export {
   getApartListByLngLat,
   getApartDeals,
   getApartDealCount,
+  getStoreInfo,
+  getStoreList,
 };

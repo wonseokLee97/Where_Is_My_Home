@@ -5,10 +5,13 @@
         <a class="nav-link" href="#home"><b-icon icon="arrow-up-square" /></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#loadview">loadview</a>
+        <a class="nav-link" href="#loadview">로드뷰</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#info">info</a>
+        <a class="nav-link" href="#info">아파트정보</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#store">상권정보</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#list">거래내역</a>

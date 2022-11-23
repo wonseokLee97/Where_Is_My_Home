@@ -28,6 +28,7 @@ export default {
 
 body {
   -ms-overflow-style: none;
+  height: 100%;
 }
 
 ::-webkit-scrollbar {

@@ -7,6 +7,8 @@ import {
   getApartListByLngLat,
   getApartDeals,
   getApartDealCount,
+  getStoreInfo,
+  getStoreList,
 } from "@/api/apart";
 
 const apartStore = {
@@ -19,6 +21,8 @@ const apartStore = {
     apartInfo: {},
     apartDeals: [],
     totalRows: 0,
+    storeInfo: [],
+    storeList: [],
   },
   mutations: {
     SET_SIDO_LIST(state, sidoList) {
@@ -44,6 +48,12 @@ const apartStore = {
     },
     SET_TOTAL_ROWS(state, totalRows) {
       state.totalRows = totalRows;
+    },
+    SET_STORE_INFO(state, storeInfo) {
+      state.storeInfo = storeInfo;
+    },
+    SET_STORE_LIST(state, storeList) {
+      state.storeList = storeList;
     },
   },
   actions: {
@@ -133,6 +143,28 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
+        },
+      );
+    },
+    async getStoreInfo({ commit }, param) {
+      await getStoreInfo(
+        param,
+        ({ data }) => {
+          commit("SET_STORE_INFO", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async getStoreList({ commit }, param) {
+      await getStoreList(
+        param,
+        ({ data }) => {
+          commit("SET_STORE_LIST", data);
+        },
+        (error) => {
+          console.log("error = ", error);
         },
       );
     },

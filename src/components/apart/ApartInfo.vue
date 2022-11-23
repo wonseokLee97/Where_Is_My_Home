@@ -10,7 +10,7 @@
     header-close-content="x"
     title-html="아파트 정보"
   >
-    <div v-bar class="word-box">
+    <div v-bar class="box">
       <div>
         <a name="home"></a>
 
@@ -22,6 +22,9 @@
         <h3><a name="info">아파트 정보</a></h3>
         <b-table stacked :items="[apartInfo]" :fields="fields" />
         <hr />
+
+        <h3><a name="store">상권 정보</a></h3>
+        <store-info />
 
         <h3><a name="list">거래 내역</a></h3>
         <apart-deal-list :aptCode="aptCode" />
@@ -35,6 +38,7 @@ import { mapState, mapActions } from "vuex";
 import ApartDealList from "./ApartDealList";
 import ApartInfoNav from "./ApartInfoNav";
 import KakaoLoadView from "./map/KakaoLoadView";
+import StoreInfo from "./StoreInfo";
 
 const apartStore = "apartStore";
 
@@ -43,6 +47,7 @@ export default {
     ApartDealList,
     KakaoLoadView,
     ApartInfoNav,
+    StoreInfo,
   },
   name: "AptInfo",
   data() {
@@ -77,9 +82,9 @@ export default {
 </script>
 
 <style>
-.word-box {
+.box {
   text-align: center;
-  height: 580px;
+  height: 100%;
   background-size: 100%;
   font-size: 15px;
 }
