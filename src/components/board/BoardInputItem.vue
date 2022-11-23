@@ -2,13 +2,7 @@
   <b-row class="mb-1">
     <b-col style="text-align: left">
       <b-form-group id="userid-group" label="작성자:" label-for="userid">
-        <b-form-input
-          id="userid"
-          :disabled="true"
-          v-model="article.userId"
-          type="text"
-          required
-        ></b-form-input>
+        <b-form-input id="userid" :disabled="true" v-model="article.userId" type="text" required></b-form-input>
       </b-form-group>
 
       <b-form-group id="subject-group" label="제목:" label-for="subject">
@@ -21,17 +15,10 @@
         ></b-form-input>
       </b-form-group>
       <vue-editor v-model="article.content"></vue-editor>
-      <b-button
-        type="submit"
-        variant="secondary"
-        class="m-1"
-        @click="onSubmit"
-        v-if="this.type === 'register'"
+      <b-button type="submit" variant="secondary" class="m-1" @click="onSubmit" v-if="this.type === 'register'"
         >글작성</b-button
       >
-      <b-button type="submit" variant="secondary" class="m-1" @click="onSubmit" v-else
-        >글수정</b-button
-      >
+      <b-button type="submit" variant="secondary" class="m-1" @click="onSubmit" v-else>글수정</b-button>
       <b-button type="list" @click="moveList" variant="light" class="m-1">글목록</b-button>
     </b-col>
   </b-row>
@@ -78,20 +65,12 @@ export default {
 
       let err = true;
       let msg = "";
-      !this.article.userId &&
-        ((msg = "작성자 입력해주세요"), (err = false), this.$refs.userid.focus());
-      err &&
-        !this.article.subject &&
-        ((msg = "제목 입력해주세요"), (err = false), this.$refs.subject.focus());
-      err &&
-        !this.article.content &&
-        ((msg = "내용 입력해주세요"), (err = false), this.$refs.content.focus());
+      !this.article.userId && ((msg = "작성자 입력해주세요"), (err = false), this.$refs.userid.focus());
+      err && !this.article.subject && ((msg = "제목 입력해주세요"), (err = false), this.$refs.subject.focus());
+      err && !this.article.content && ((msg = "내용 입력해주세요"), (err = false), this.$refs.content.focus());
 
       if (!err) alert(msg);
-      else
-        this.type === "register"
-          ? this.writeArticle(this.article)
-          : this.modifyArticle(this.article);
+      else this.type === "register" ? this.writeArticle(this.article) : this.modifyArticle(this.article);
     },
     moveList() {
       this.$router.push({ name: "boardlist" });
