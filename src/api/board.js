@@ -2,6 +2,12 @@ import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
+// ========= QNA ============
+async function listQna(success, fail) {
+  api.delete(`/board/qna`).then(success).catch(fail);
+}
+
+// ========= LIST ============
 async function listArticle(param, success, fail) {
   api.get(`/board`, { params: param }).then(success).catch(fail);
 }
@@ -26,6 +32,7 @@ async function deleteArticle(articleno, success, fail) {
   api.delete(`/board/${articleno}`).then(success).catch(fail);
 }
 
+// ========= COMMENT ============
 async function writeComment(comment, success, fail) {
   api.post(`/board/comment`, JSON.stringify(comment)).then(success).catch(fail);
 }
@@ -39,6 +46,7 @@ async function deleteComment(commentno, success, fail) {
 }
 
 export {
+  listQna,
   listArticle,
   getArticleCount,
   writeArticle,

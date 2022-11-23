@@ -8,7 +8,7 @@
           <b-nav-item to="/apart">아파트</b-nav-item>
           <b-nav-item-dropdown text="게시판">
             <b-dropdown-item to="/board">자유게시판</b-dropdown-item>
-            <b-dropdown-item href="#">Q&A</b-dropdown-item>
+            <b-dropdown-item to="/qna">Q&A</b-dropdown-item>
           </b-nav-item-dropdown>
           <template v-if="userInfo">
             <b-nav-item @click="mypage">Mypage</b-nav-item>
