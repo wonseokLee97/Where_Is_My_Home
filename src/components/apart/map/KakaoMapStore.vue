@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <!-- {{ storeList }} -->
-  </div>
+  <div></div>
 </template>
 
 <script>

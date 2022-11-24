@@ -3,12 +3,17 @@ import { apiInstance } from "./index.js";
 const api = apiInstance();
 
 // ========= QNA ============
-async function listQna(param, success, fail) {
-  api.get(`/board/qna`, {params: param}).then(success).catch(fail);
+async function listQna(success, fail) {
+  api.get(`/board/qna`).then(success).catch(fail);
 }
 
 async function writeQna(qna, success, fail) {
   api.post(`/board/qna`, JSON.stringify(qna)).then(success).catch(fail);
+}
+
+async function writeQnaComment(comment, success, fail) {
+  console.log(comment);
+  api.put(`/board/qna/comment`, JSON.stringify(comment)).then(success).catch(fail);
 }
 
 // ========= LIST ============
@@ -52,6 +57,7 @@ async function deleteComment(commentno, success, fail) {
 export {
   listQna,
   writeQna,
+  writeQnaComment,
   listArticle,
   getArticleCount,
   writeArticle,
