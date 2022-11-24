@@ -22,6 +22,7 @@ export default {
         slat: "",
         elat: "",
       },
+      clusterer: null,
     };
   },
 
@@ -42,7 +43,7 @@ export default {
 
   methods: {
     ...mapActions("apartStore", ["getApartListByLngLat"]),
-    ...mapMutations("apartStore", ["SET_APT_LIST"]),
+    ...mapMutations("apartStore", ["SET_APT_LIST", "SET_CLUSTERER"]),
 
     initMap() {
       const container = document.getElementById("map");
@@ -51,7 +52,6 @@ export default {
         level: 7,
       };
       this.map = new kakao.maps.Map(container, options);
-      // this.map.setMaxLevel(7);
     },
 
     displayUnfind(apartList) {
@@ -70,20 +70,6 @@ export default {
     },
 
     displayMarkers(apartList) {
-      // 1. 지도위의 마커 초기화
-      // console.log(this.markers.length);
-      // if (this.markers.length > 0) {
-      //   this.markers.forEach((item) => {
-      //     item.marker.setMap(null);
-      //   });
-      // }
-
-      for (let i = 0; i < this.markers.length; i++) {
-        this.markers[i].marker.setMap(null);
-      }
-      console.log(this.markers);
-      this.markers = [];
-
       const positions = [];
       const forCluster = [];
 
@@ -104,21 +90,32 @@ export default {
         forCluster.push(fc);
       });
 
+      // 1. 지도위의 마커 초기화
+      console.log(this.markers.length);
+      if (this.markers.length > 0) {
+        this.markers.forEach((item) => {
+          item.marker.setMap(null);
+        });
+      }
+      this.markers = [];
+      if (this.clusterer) this.clusterer.clear();
+
       // 2. 마커 이미지 커스터마이징
-      const imgSrc = require("@/assets/markerStar.png");
+      const imgSrc = require("@/assets/houseIcon.png");
       const imgSize = new kakao.maps.Size(33, 30);
       const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 
       // 4. 지도 이동
       const bounds = positions.reduce(
         (bounds, position) => bounds.extend(position.latlng),
-        new kakao.maps.LatLngBounds(),
+        new kakao.maps.LatLngBounds()
       );
 
       this.map.setBounds(bounds);
       this.map.setLevel(4);
 
-      const clusterer = new kakao.maps.MarkerClusterer({
+      console.log("클러스터 생성!");
+      this.clusterer = new kakao.maps.MarkerClusterer({
         map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
         minLevel: 5, // 클러스터 할 최소 지도 레벨
       });
@@ -160,16 +157,20 @@ export default {
 
         const click = this.click;
         kakao.maps.event.addListener(marker.marker, "click", function () {
+          console.log(marker.marker);
           click(marker.code);
         });
       });
 
+      // console.log(markers);
+      // console.log(markers.length);
       this.markers.forEach((marker) => {
         clusterMarkers.push(marker.marker);
       });
 
+      // console.log(clusterer);
       // 클러스터러에 마커들을 추가합니다
-      clusterer.addMarkers(clusterMarkers);
+      this.clusterer.addMarkers(clusterMarkers);
 
       // kakao.maps.event.addListener(clusterer, "clusterclick", function () {
       //   this.zoom(clusterer);
@@ -193,11 +194,34 @@ export default {
       this.map.setLevel(level, { anchor: cluster.getCenter() });
     },
     click(code) {
+      console.log("클릭!");
+      console.log(code);
       this.$emit("click", code);
+    },
+
+    clear() {
+      // script 태그 객체 생성
+      const script = document.createElement("script");
+      script.src = process.env.VUE_APP_KAKAO_URL;
+      script.addEventListener("load", () => {
+        kakao.maps.load(this.initMap);
+        // console.log("loaded", window.kakao);
+      });
+      document.head.appendChild(script);
     },
   },
 
   mounted() {
+    // script 태그 객체 생성
+    // console.log("mounted!");
+    // const script = document.createElement("script");
+    // script.src = process.env.VUE_APP_KAKAO_URL;
+    // script.addEventListener("load", () => {
+    //   kakao.maps.load(this.initMap);
+    //   // console.log("loaded", window.kakao);
+    // });
+    // document.head.appendChild(script);
+
     if (!window.kakao || !window.kakao.maps) {
       // script 태그 객체 생성
       const script = document.createElement("script");
