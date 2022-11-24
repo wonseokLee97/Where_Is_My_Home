@@ -1,5 +1,6 @@
 <template>
   <b-container class="bv-example-row">
+    <br>
     <b-form-select
       v-model="dongInfo.sidoName"
       :options="sidoList"
@@ -48,6 +49,6 @@ export default {
 <style>
 .custom-select {
   width: 30%;
-  margin: 10px;
+  margin: 0px 15px 0px 0px;
 }
 </style>

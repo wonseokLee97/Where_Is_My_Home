@@ -47,6 +47,8 @@ import { mapActions, mapMutations, mapState } from "vuex";
 // import QnaModal from './QnaModal.vue';
 
 const boardStore = "boardStore";
+const memberStore = "memberStore";
+
 
 export default {
   name: "QnaList",
@@ -97,6 +99,7 @@ export default {
   // },
   computed: {
     ...mapState(boardStore, ["qnas", "qnaCnt", "isModal", "totalRows"]),
+    ...mapState(memberStore, ["userInfo"])
   },
 
   watch: {
@@ -115,21 +118,30 @@ export default {
     },
 
     moveDetail(item) {
-      if (item == null) {
-        this.flag = null;
-        this.comment.articleNo = null;
-      } else if (this.flag != null) {
-        if (this.flag == item.articleNo) {
+      console.log(item.userId);
+      console.log(this.userInfo.userId);
+      // A등급이거나 작성자와 조회자가 같아야지만 가능하다.
+      // A등급이 아니거나, 작성자와 조회자가 다르면
+      if (item.userId == this.userInfo.userId || this.userInfo.grade == "A") {
+        if (item == null) {
           this.flag = null;
           this.comment.articleNo = null;
-        } else if (this.flag >= 0) {
+        } else if (this.flag != null) {
+          if (this.flag == item.articleNo) {
+            this.flag = null;
+            this.comment.articleNo = null;
+          } else if (this.flag >= 0) {
+            this.flag = item.articleNo;
+            this.comment.articleNo = item.articleNo;
+          }
+        } else {
           this.flag = item.articleNo;
           this.comment.articleNo = item.articleNo;
         }
       } else {
-        this.flag = item.articleNo;
-        this.comment.articleNo = item.articleNo;
+        alert("질문글은 작성자나 관리자만 접근 가능합니다!");
       }
+
       this.comment.content = item.comment;
     },
 

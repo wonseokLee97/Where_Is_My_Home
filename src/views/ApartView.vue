@@ -12,6 +12,7 @@
     <template v-else>
       <apart-search></apart-search>
     </template>
+    <br>
     <!-- map -->
     <kakao-map @click="showModal"></kakao-map>
     <!-- modal -->

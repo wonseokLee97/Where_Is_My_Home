@@ -116,7 +116,7 @@ div {
 .white-bg {
   margin: 0 auto;
   width: 30%;
-  height: 55%;
+  height: 60%;
   background: white;
   border-radius: 3px;
   padding: 5px 20px 0px 20px;
