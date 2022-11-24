@@ -7,11 +7,22 @@
           <b-form-input type="range" min="0" max="1000" v-model="distance" @mouseup="mouseup" />
         </b-input-group>
       </b-col>
+      <b-col md="6" offset-md="3">
+        <b-form-group v-slot="{ ariaDescribedby }">
+          <b-form-checkbox-group
+            id="checkbox-group-1"
+            v-model="selected"
+            :options="options"
+            :aria-describedby="ariaDescribedby"
+            name="flavour-1"
+          />
+        </b-form-group>
+      </b-col>
       <b-col md="5" offset-md="1">
         <b-table :items="storeInfo" :fields="fields" />
       </b-col>
       <b-col md="5" offset-md="1">
-        <kakao-map-store :storeList="storeList" />
+        <kakao-map-store :storeList="showStoreList" />
       </b-col>
     </b-row>
   </div>
@@ -35,6 +46,9 @@ export default {
         { key: "categoryMain", label: "분류", tdClass: "tdSubject" },
         { key: "count", label: "수", tdClass: "tdClass" },
       ],
+      selected: [],
+      options: [],
+      showStoreList: [],
     };
   },
   created() {
@@ -43,6 +57,16 @@ export default {
   },
   computed: {
     ...mapState(apartStore, ["apartInfo", "storeInfo", "storeList"]),
+  },
+  watch: {
+    selected() {
+      this.showStoreList = [];
+      for (let store of this.storeList) {
+        if (this.selected.indexOf(store.categoryMain) >= 0) {
+          this.showStoreList.push(store);
+        }
+      }
+    },
   },
   methods: {
     ...mapMutations(apartStore, ["SET_STORE_INFO", "SET_STORE_LIST"]),
@@ -55,6 +79,12 @@ export default {
       };
       await this.getStoreInfo(param);
       await this.getStoreList(param);
+
+      this.options = [];
+      for (let store of this.storeInfo) {
+        this.options.push({ text: store.categoryMain, value: store.categoryMain });
+      }
+      this.showStoreList = [];
     },
   },
 };

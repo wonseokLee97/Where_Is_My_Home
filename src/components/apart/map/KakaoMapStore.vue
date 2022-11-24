@@ -60,7 +60,7 @@ export default {
         removable: iwRemoveable,
       });
 
-      console.log(house.getTitle());
+      // console.log(house.getTitle());
 
       kakao.maps.event.addListener(house, "mouseover", function () {
         infowindow.open(this.map2, house);
@@ -125,21 +125,21 @@ export default {
           removable: iwRemoveable,
         });
 
-        console.log(marker.getTitle());
+        // console.log(marker.getTitle());
 
         kakao.maps.event.addListener(marker, "mouseover", function () {
-          console.log(this.map2);
-          console.log(marker);
+          // console.log(this.map2);
+          // console.log(marker);
           infowindow.open(getMap, marker);
         });
 
         kakao.maps.event.addListener(marker, "mouseout", function () {
-          console.log(getMap);
-          console.log(marker);
+          // console.log(getMap);
+          // console.log(marker);
           infowindow.close();
         });
 
-        console.log(infowindow);
+        // console.log(infowindow);
         this.markers.push(marker);
       });
 
