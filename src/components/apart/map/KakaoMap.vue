@@ -29,7 +29,7 @@ export default {
     apartList() {
       //type
       if (typeof this.apartList == "string") {
-        alert("해당 지역에 아파트가 없습니다!");
+        alert("아파트 정보를 찾을 수 없습니다.");
         this.displayUnfind(this.apartList);
         this.SET_APT_LIST("");
       } else this.displayMarkers(this.apartList);
@@ -51,7 +51,7 @@ export default {
         level: 7,
       };
       this.map = new kakao.maps.Map(container, options);
-      this.map.setMaxLevel(7);
+      // this.map.setMaxLevel(7);
     },
 
     displayUnfind(apartList) {
@@ -70,6 +70,20 @@ export default {
     },
 
     displayMarkers(apartList) {
+      // 1. 지도위의 마커 초기화
+      // console.log(this.markers.length);
+      // if (this.markers.length > 0) {
+      //   this.markers.forEach((item) => {
+      //     item.marker.setMap(null);
+      //   });
+      // }
+
+      for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].marker.setMap(null);
+      }
+      console.log(this.markers);
+      this.markers = [];
+
       const positions = [];
       const forCluster = [];
 
@@ -90,13 +104,6 @@ export default {
         forCluster.push(fc);
       });
 
-      // 1. 지도위의 마커 초기화
-      if (this.markers.length > 0) {
-        this.markers.forEach((item) => {
-          item.setMap(null);
-        });
-      }
-
       // 2. 마커 이미지 커스터마이징
       const imgSrc = require("@/assets/markerStar.png");
       const imgSize = new kakao.maps.Size(33, 30);
@@ -105,7 +112,7 @@ export default {
       // 4. 지도 이동
       const bounds = positions.reduce(
         (bounds, position) => bounds.extend(position.latlng),
-        new kakao.maps.LatLngBounds()
+        new kakao.maps.LatLngBounds(),
       );
 
       this.map.setBounds(bounds);
@@ -113,7 +120,6 @@ export default {
 
       const clusterer = new kakao.maps.MarkerClusterer({
         map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-        averageCener: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
         minLevel: 5, // 클러스터 할 최소 지도 레벨
       });
 
@@ -121,11 +127,10 @@ export default {
         positions: forCluster,
       };
 
-      const markers = [];
       const clusterMarkers = [];
 
       data.positions.forEach((position) => {
-        markers.push({
+        this.markers.push({
           title: position.title,
           code: position.code,
           marker: new kakao.maps.Marker({
@@ -137,7 +142,7 @@ export default {
       });
 
       const getMap = this.map;
-      markers.forEach((marker) => {
+      this.markers.forEach((marker) => {
         var iwContent = `<div style="padding:5px;">${marker.marker.getTitle()}</div>`;
         var iwRemoveable = true;
         var infowindow = new kakao.maps.InfoWindow({
@@ -159,7 +164,7 @@ export default {
         });
       });
 
-      markers.forEach((marker) => {
+      this.markers.forEach((marker) => {
         clusterMarkers.push(marker.marker);
       });
 
@@ -169,6 +174,15 @@ export default {
       // kakao.maps.event.addListener(clusterer, "clusterclick", function () {
       //   this.zoom(clusterer);
       // });
+
+      if (this.apartList.length > 0) {
+        // 이동할 위도 경도 위치를 생성합니다
+        var moveLatLon = new kakao.maps.LatLng(this.apartList[0].lat, this.apartList[0].lng);
+
+        // 지도 중심을 부드럽게 이동시킵니다
+        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+        this.map.panTo(moveLatLon);
+      }
     },
 
     zoom(cluster) {

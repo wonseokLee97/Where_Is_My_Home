@@ -1,8 +1,17 @@
 <template>
   <div>
     <h3><b-icon icon="map"></b-icon> Apart Service</h3>
+    <b-button @click="toggle">
+      <template v-if="searchName"> 아파트 이름으로 검색 </template>
+      <template v-else> 시군구 정보로 검색 </template>
+    </b-button>
     <!-- search bar -->
-    <apart-search></apart-search>
+    <template v-if="searchName">
+      <apart-name-search></apart-name-search>
+    </template>
+    <template v-else>
+      <apart-search></apart-search>
+    </template>
     <!-- map -->
     <kakao-map @click="showModal"></kakao-map>
     <!-- modal -->
@@ -16,6 +25,7 @@
 import KakaoMap from "@/components/apart/map/KakaoMap";
 import ApartSearch from "@/components/apart/ApartSearch";
 import ApartInfo from "@/components/apart/ApartInfo";
+import ApartNameSearch from "@/components/apart/ApartNameSearch";
 
 export default {
   name: "ApartView",
@@ -23,12 +33,14 @@ export default {
     return {
       modal: false,
       aptCode: "",
+      searchName: false,
     };
   },
   components: {
     KakaoMap,
     ApartSearch,
     ApartInfo,
+    ApartNameSearch,
   },
   methods: {
     showModal(aptCode) {
@@ -38,6 +50,9 @@ export default {
     closeModal() {
       this.modal = false;
       this.aptCode = "";
+    },
+    toggle() {
+      this.searchName = !this.searchName;
     },
   },
 };

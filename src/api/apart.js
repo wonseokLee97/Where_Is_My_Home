@@ -54,6 +54,14 @@ async function removeFavoriteApt(param, success, fail) {
   await api.delete(`/home/favoriteapt`, { params: param }).then(success).catch(fail);
 }
 
+async function searchAptNames(word, success, fail) {
+  await api.get(`/home/getaptnames?word=${word}`).then(success).catch(fail);
+}
+
+async function getAptByName(word, success, fail) {
+  await api.get(`/home/getaptinfo?word=${word}`).then(success).catch(fail);
+}
+
 export {
   getSido,
   getGugun,
@@ -68,4 +76,6 @@ export {
   checkFavoriteApt,
   addFavoriteApt,
   removeFavoriteApt,
+  searchAptNames,
+  getAptByName,
 };

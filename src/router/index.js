@@ -64,6 +64,18 @@ const routes = [
     component: () => import("@/components/user/FavoriteAptList"),
   },
   {
+    path: "/apartsearch",
+    name: "apartsearch",
+    beforeEnter: onlyAuthUser,
+    component: () => import("@/components/apart/ApartSearch"),
+  },
+  {
+    path: "/apartnamesearch",
+    name: "apartnamesearch",
+    beforeEnter: onlyAuthUser,
+    component: () => import("@/components/apart/ApartNameSearch"),
+  },
+  {
     path: "/board",
     name: "board",
     component: () => import("@/views/BoardView"),

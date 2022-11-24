@@ -12,6 +12,8 @@ import {
   checkFavoriteApt,
   addFavoriteApt,
   removeFavoriteApt,
+  searchAptNames,
+  getAptByName,
 } from "@/api/apart";
 
 const apartStore = {
@@ -28,6 +30,7 @@ const apartStore = {
     storeList: [],
     isFavoriteApt: false,
     favoriteApts: [],
+    searchList: [],
   },
   mutations: {
     SET_SIDO_LIST(state, sidoList) {
@@ -66,6 +69,9 @@ const apartStore = {
     SET_FAVORITE_APTS(state, favoriteApts) {
       state.favoriteApts = favoriteApts;
     },
+    SET_SEARCH_LIST(state, searchList) {
+      state.searchList = searchList;
+    },
   },
   actions: {
     async getSidoList({ commit }) {
@@ -75,7 +81,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getGugunList({ commit }, param) {
@@ -86,7 +92,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getDongList({ commit }, param) {
@@ -97,7 +103,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getApartList({ commit }, param) {
@@ -105,12 +111,11 @@ const apartStore = {
         param,
         ({ data }) => {
           commit("SET_APT_LIST", data);
-          if (!data)
-            commit("SET_APT_LIST", param.sidoName + " " + param.gugunName + " " + param.dongName);
+          if (!data) commit("SET_APT_LIST", param.sidoName + " " + param.gugunName + " " + param.dongName);
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getApartListByLngLat({ commit }, param) {
@@ -121,7 +126,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getApartInfo({ commit }, aptcode) {
@@ -132,7 +137,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getApartDeals({ commit }, aptCode) {
@@ -149,7 +154,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getStoreInfo({ commit }, param) {
@@ -161,7 +166,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getStoreList({ commit }, param) {
@@ -173,7 +178,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async getFavoriteApts({ commit }, userId) {
@@ -184,7 +189,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async checkFavoriteApt({ commit }, param) {
@@ -195,7 +200,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     async addFavoriteApt({ commit, dispatch }, param) {
@@ -207,7 +212,7 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
       await dispatch("getFavoriteApts", param.userId);
     },
@@ -219,9 +224,33 @@ const apartStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
       await dispatch("getFavoriteApts", param.userId);
+    },
+    async searchAptNames({ commit }, word) {
+      await searchAptNames(
+        word,
+        ({ data }) => {
+          commit("SET_SEARCH_LIST", data);
+          if (!data) commit("SET_SEARCH_LIST", []);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async getAptByName({ commit }, word) {
+      await getAptByName(
+        word,
+        ({ data }) => {
+          commit("SET_APT_LIST", data);
+          if (!data) commit("SET_APT_LIST", []);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
     },
   },
 };

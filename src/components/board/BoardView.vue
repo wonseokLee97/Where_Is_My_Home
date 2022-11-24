@@ -24,6 +24,7 @@
       </b-card>
     </b-row>
     <board-comment :comments="article.comments"></board-comment>
+    <hr />
     <board-comment-input></board-comment-input>
   </b-container>
 </template>

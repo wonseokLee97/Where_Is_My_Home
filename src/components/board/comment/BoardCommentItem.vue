@@ -1,17 +1,5 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <div class="card post-comments">
-      <p class="meta">
-        Dec 18, 2014 <a href="#">JohnDoe</a> says :
-        <i class="pull-right"
-          ><a href="#"><small>Reply</small></a></i
-        >
-      </p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a sapien odio, sit amet</p>
-      <template v-if="modify">
-        <board-comment-input type="modify" @cancle="cancle" :mcomment="comment" />
-      </template>
-    </div>
     <b-card no-body style="width: 100%">
       <b-card-sub-title><br />{{ comment.userId }} {{ comment.regtime }}</b-card-sub-title>
       <template v-if="modify">
