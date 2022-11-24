@@ -2,6 +2,7 @@ import router from "@/router";
 import {
   listQna,
   writeQna,
+  writeQnaComment,
   listArticle,
   getArticleCount,
   writeArticle,
@@ -55,14 +56,13 @@ const boardStore = {
     },
     SET_QNA_CLEAR(state) {
       state.qnas = [];
-    }
+    },
   },
   actions: {
     // ========= QNA ============
 
-    async listQna({ commit, dispatch }, params) {
+    async listQna({ commit }) {
       await listQna(
-        params,
         ({ data }) => {
           commit("SET_QNA_ARTICLE_LIST", data);
         },
@@ -70,20 +70,18 @@ const boardStore = {
           console.log(error);
         },
       );
-      await dispatch("getArticleCount", params);
     },
 
-    async writeQna({ commit }, qna) {
+    async writeQna({ dispatch }, qna) {
       await writeQna(
         qna,
         ({ data }) => {
-          console.log(data);
           let msg = "등록 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "등록이 완료되었습니다.";
           }
           alert(msg);
-          commit("SET_QNA_CNT");
+          dispatch("listQna");
         },
         (error) => {
           console.log(error);
@@ -91,56 +89,22 @@ const boardStore = {
       );
     },
 
-    // async getQna({ commit }, articleNo) {
-    //   await getQna(
-    //     articleNo,
-    //     ({ data }) => {
-    //       commit("SET_ARTICLE", data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     },
-    //   );
-    // },
-
-    // async getQnaCount({ commit }, params) {
-    //   await getQnaCount(
-    //     params,
-    //     ({ data }) => {
-    //       commit("SET_QNA_ROWS", data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     },
-    //   );
-    // },
-    // async getQna({ commit }, articleNo) {
-    //   await getQna(
-    //     articleNo,
-    //     ({ data }) => {
-    //       commit("SET_QNA", data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     },
-    //   );
-    // },
-    // async deleteQna(_, articleNo) {
-    //   await deleteQna(
-    //     articleNo,
-    //     ({ data }) => {
-    //       let msg = "삭제 처리시 문제가 발생했습니다.";
-    //       if (data === "success") {
-    //         msg = "삭제가 완료되었습니다.";
-    //       }
-    //       alert(msg);
-    //       router.push({ name: "boardlist" });
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     },
-    //   );
-    // },
+    async writeQnaComment({ dispatch }, comment) {
+      await writeQnaComment(
+        comment,
+        ({ data }) => {
+          let msg = "댓글 등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "댓글 등록이 완료되었습니다.";
+          }
+          alert(msg);
+          dispatch("listQna");
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
 
     // ========= LIST ============
     async listArticle({ commit, dispatch }, params) {
