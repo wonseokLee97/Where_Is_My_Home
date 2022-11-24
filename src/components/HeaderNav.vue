@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" variant="faded" type="light" style="height: 80px">
+    <b-navbar class="header-nav" toggleable="lg" variant="faded" type="light" style="height: 80px">
       <b-navbar-brand tag="h1" class="mb-0" to="/">Happy House</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -54,4 +54,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.header-nav {
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+}
+</style>

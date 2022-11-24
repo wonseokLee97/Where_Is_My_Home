@@ -1,10 +1,15 @@
 <template>
-<b-container class="bv-example-row mt-3">
-<hr>
-    <b-row>
+<div class="bv-example-row">
+    <b-carousel id="carousel-fade" style="text-shadow: 0px 0px 2px #000" fade indicators img-width="1024" img-height="480">
+        <b-carousel-slide :img-src="require('@/assets/main.jpg')"></b-carousel-slide>
+        <!-- <b-carousel-slide :img-src="require('@/assets/main2.jpg')"></b-carousel-slide> -->
+    </b-carousel>
+    <div class="bv-example-row container">
+        <br/>
+        <b-row>
         <b-col></b-col>
         <b-col cols="6">
-            <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+            <b-card class="middle-position-findPw text-center mt-3" style="max-width: 40rem" align="left">
                 <b-form class="text-left">
                     <br>
                     <div>
@@ -42,8 +47,9 @@
             </b-card>
         </b-col>
         <b-col></b-col>
-    </b-row>
-</b-container>
+        </b-row>
+    </div>
+</div>
 </template>
 
 <script>
@@ -86,7 +92,14 @@ export default {
     }
 }
 </script>
-//
-<style>
 
+<style>
+.middle-position-findPw {
+    z-index: 2;
+    bottom: -36px;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
+    /* max-width: 50rem; */
+    width: 38vw;
+    position: absolute;
+}
 </style>

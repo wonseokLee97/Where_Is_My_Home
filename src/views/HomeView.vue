@@ -20,7 +20,7 @@
 <style scoped>
 .box {
   position: absolute;
-  z-index: 5;
+  z-index: 2;
   top: 300px;
   left: 21%;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
