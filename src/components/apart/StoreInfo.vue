@@ -84,6 +84,7 @@ export default {
       for (let store of this.storeInfo) {
         this.options.push({ text: store.categoryMain, value: store.categoryMain });
       }
+      this.selected = [];
       this.showStoreList = [];
     },
   },

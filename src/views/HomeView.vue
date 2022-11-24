@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-    <div class="logo">
-      <h1>Where is my home</h1>
-    </div>
+    <div class="box"></div>
     <b-carousel
       id="carousel-fade"
       style="text-shadow: 0px 0px 2px #000"
@@ -20,12 +18,11 @@
 <script></script>
 
 <style scoped>
-h1 {
+.box {
   position: absolute;
-  color: white;
   z-index: 5;
-}
-.logo {
-  text-align: center;
+  background-color: red;
+  width: 100px;
+  height: 100px;
 }
 </style>
