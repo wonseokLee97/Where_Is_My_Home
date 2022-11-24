@@ -10,7 +10,7 @@
       img-height="480"
     >
       <b-carousel-slide :img-src="require('@/assets/main.jpg')"></b-carousel-slide>
-      <b-carousel-slide :img-src="require('@/assets/main2.jpg')"></b-carousel-slide>
+      <!-- <b-carousel-slide :img-src="require('@/assets/main2.jpg')"></b-carousel-slide> -->
     </b-carousel>
   </div>
 </template>
@@ -21,8 +21,11 @@
 .box {
   position: absolute;
   z-index: 5;
-  background-color: red;
-  width: 100px;
-  height: 100px;
+  top: 300px;
+  left: 21%;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
+  background-color: white;
+  width: 60vw;
+  height: 50vh;
 }
 </style>
