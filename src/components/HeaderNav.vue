@@ -1,19 +1,21 @@
 <template>
   <div>
     <b-navbar class="header-nav" toggleable="lg" variant="faded" type="light" style="height: 80px">
-      <b-navbar-brand tag="h1" class="mb-0" to="/">Happy House</b-navbar-brand>
+      <b-navbar-brand tag="h1" class="mb-0" to="/" style="padding-left:10px;;">AS-APT</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
+        <b-navbar-nav style="padding-left:13px;">
           <b-nav-item to="/apart">아파트</b-nav-item>
           <b-nav-item-dropdown text="게시판">
             <b-dropdown-item to="/board">자유게시판</b-dropdown-item>
             <b-dropdown-item to="/qna">Q&A</b-dropdown-item>
           </b-nav-item-dropdown>
+        </b-navbar-nav>
+        <b-navbar-nav class="ml-auto" style="padding-right:13px;">
           <template v-if="userInfo">
-            <b-nav-item @click="mypage">마이페이지</b-nav-item>
-            <b-nav-item @click="favoriteApts">관심아파트</b-nav-item>
-            <b-nav-item @click="logout">로그아웃</b-nav-item>
+            <b-nav-item @click="mypage" right>마이페이지</b-nav-item>
+            <b-nav-item @click="favoriteApts" right>관심아파트</b-nav-item>
+            <b-nav-item @click="logout" right>로그아웃</b-nav-item>
             <b-nav-item disabled>
               {{ userInfo.userId }} <template v-if="userInfo.grade == 'A'">(관리자)</template>
             </b-nav-item>

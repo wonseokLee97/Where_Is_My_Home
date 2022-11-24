@@ -19,7 +19,7 @@ export default {
 <style>
 @font-face {
   font-family: "hannapro";
-  src: url("../public/fonts/BMHANNAPro.ttf");
+  src: url("../public/fonts/WelcomeRegular.ttf");
 }
 
 * {

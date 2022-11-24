@@ -1,5 +1,6 @@
 <template>
   <div>
+    <br>
     <h3><b-icon icon="map"></b-icon> Apart Service</h3>
     <b-button @click="toggle">
       <template v-if="searchName"> 아파트 이름으로 검색 </template>
