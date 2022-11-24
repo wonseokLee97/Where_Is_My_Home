@@ -11,16 +11,16 @@
             <b-dropdown-item to="/qna">Q&A</b-dropdown-item>
           </b-nav-item-dropdown>
           <template v-if="userInfo">
-            <b-nav-item @click="mypage">Mypage</b-nav-item>
+            <b-nav-item @click="mypage">마이페이지</b-nav-item>
             <b-nav-item @click="favoriteApts">관심아파트</b-nav-item>
-            <b-nav-item @click="logout">Logout</b-nav-item>
+            <b-nav-item @click="logout">로그아웃</b-nav-item>
             <b-nav-item disabled>
               {{ userInfo.userId }} <template v-if="userInfo.grade == 'A'">(관리자)</template>
             </b-nav-item>
           </template>
           <template v-else>
-            <b-nav-item to="/login">Login</b-nav-item>
-            <b-nav-item to="/signup">SignUp</b-nav-item>
+            <b-nav-item to="/login">로그인</b-nav-item>
+            <b-nav-item to="/signup">회원가입</b-nav-item>
           </template>
         </b-navbar-nav>
       </b-collapse>

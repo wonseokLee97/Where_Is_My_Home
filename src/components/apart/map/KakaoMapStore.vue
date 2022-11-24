@@ -38,7 +38,7 @@ export default {
         level: 2,
       };
       this.map2 = new kakao.maps.Map(container, options);
-      this.map2.setMaxLevel(4);
+      this.map2.setMaxLevel(5);
     },
 
     setHouse() {

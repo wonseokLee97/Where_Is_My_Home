@@ -3,15 +3,21 @@
     <div class="box">
       <b-row>
         <b-col md="4">
-          <img :src="require('@/assets/house.png')" width="100%" />
+          <router-link to="/apart">
+            <img :src="require('@/assets/house.jpg')" width="100%" />
+          </router-link>
           <div>아파트 정보</div>
         </b-col>
         <b-col md="4">
-          <img :src="require('@/assets/board.png')" width="100%" />
+          <router-link to="/board">
+            <img :src="require('@/assets/board.jpg')" width="100%" />
+          </router-link>
           <div>자유게시판</div>
         </b-col>
         <b-col md="4">
-          <img :src="require('@/assets/heart.png')" width="100%" />
+          <router-link to="/favoriteapt">
+            <img :src="require('@/assets/heart.jpg')" width="100%" />
+          </router-link>
           <div>관심 아파트</div>
         </b-col>
       </b-row>
@@ -43,5 +49,9 @@
   width: 60vw;
   height: 50vh;
   padding: 10px;
+  padding-top: 70px;
+}
+img {
+  box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.2);
 }
 </style>
