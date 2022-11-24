@@ -9,7 +9,7 @@
         <template #cell(subject)="data">
           <router-link :to="``" @click.native="moveDetail(data.item)">{{ data.value }}</router-link>
           <template v-if="flag == data.item.articleNo">
-            <div v-if="data.item.comment == null && data.item.grade == 'A'" style="width: 100%">
+            <div v-if="(data.item.comment == null && userInfo.grade == 'A')" style="width: 100%">
               <hr />
               <b-textarea
                 id="comment"
@@ -24,7 +24,7 @@
                 <b-button type="button" @click="moveComment()">등록</b-button>
               </b-col>
             </div>
-            <div v-else-if="data.item.grade != 'A' && data.item.comment == null">
+            <div v-else-if="userInfo.grade != 'A' && data.item.comment == null">
               <hr />
               <div class="comment-box">
                 <b-form-textarea no-resize disabled value="답변은 관리자만 작성할 수 있습니다."></b-form-textarea>
@@ -66,7 +66,7 @@ export default {
         articleNo: null,
         content: null,
       },
-
+      Info: this.userInfo,
       fields: [
         {
           key: "state",
@@ -124,8 +124,7 @@ export default {
     },
 
     moveDetail(item) {
-      console.log(item.userId);
-      console.log(this.userInfo.userId);
+      console.log(item);
       // A등급이거나 작성자와 조회자가 같아야지만 가능하다.
       // A등급이 아니거나, 작성자와 조회자가 다르면
       if (item.userId == this.userInfo.userId || this.userInfo.grade == "A") {
