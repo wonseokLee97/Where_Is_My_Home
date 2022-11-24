@@ -1,15 +1,28 @@
 <template>
   <b-container class="bv-example-row">
     <h3><b-icon icon="heart"></b-icon> Favorite Service</h3>
+
     <b-row class="text-center">
       <b-col md="8" offset-md="2">
-        <b-table responsive :items="favoriteApts" :fields="fields">
+        <b-list-group>
+          <b-list-group-item
+            v-for="apt in favoriteApts"
+            :key="apt.aptcode"
+            class="d-flex justify-content-between align-items-center"
+            @click="showModal(apt)"
+          >
+            {{ apt.apartmentname }}
+            <b-badge variant="danger" pill><b-icon-heart-fill /></b-badge>
+          </b-list-group-item>
+        </b-list-group>
+
+        <!-- <b-table responsive :items="favoriteApts" :fields="fields">
           <template #cell(apartmentname)="data">
             <router-link :to="``" @click.native="showModal(data.item)">{{
               data.value
             }}</router-link>
           </template>
-        </b-table>
+        </b-table> -->
       </b-col>
     </b-row>
 

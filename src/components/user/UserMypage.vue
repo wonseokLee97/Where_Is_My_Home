@@ -1,6 +1,13 @@
 <template>
   <div class="bv-example-row">
-    <b-carousel id="carousel-fade" style="text-shadow: 0px 0px 2px #000" fade indicators img-width="1024" img-height="480">
+    <b-carousel
+      id="carousel-fade"
+      style="text-shadow: 0px 0px 2px #000"
+      fade
+      indicators
+      img-width="1024"
+      img-height="480"
+    >
       <b-carousel-slide :img-src="require('@/assets/main.jpg')"></b-carousel-slide>
       <!-- <b-carousel-slide :img-src="require('@/assets/main2.jpg')"></b-carousel-slide> -->
     </b-carousel>
@@ -9,7 +16,11 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="6">
-          <b-card class="middle-position-myPage text-center mt-3" style="max-width: 40rem" align="left">
+          <b-card
+            class="middle-position-myPage text-center mt-3"
+            style="max-width: 40rem"
+            align="left"
+          >
             <b-form @submit="doModify" class="text-left">
               <br />
               <div>
@@ -33,7 +44,7 @@
               </b-form-group>
               <b-form-group label="비밀번호:" label-for="userpwd">
                 <b-form-input
-                  type="text"
+                  type="password"
                   id="userpwd"
                   ref="userpwd"
                   v-model="user.userPwd"
@@ -61,7 +72,9 @@
                 </b-form-select>
               </b-form-group>
               <b-button type="submit" variant="secondary" class="m-1">수정</b-button>
-              <b-button type="button" variant="danger" class="m-1 float-right" @click="doDelete">회원탈퇴</b-button>
+              <b-button type="button" variant="danger" class="m-1 float-right" @click="doDelete"
+                >회원탈퇴</b-button
+              >
             </b-form>
           </b-card>
         </b-col>

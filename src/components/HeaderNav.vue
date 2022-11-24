@@ -14,6 +14,9 @@
             <b-nav-item @click="mypage">Mypage</b-nav-item>
             <b-nav-item @click="favoriteApts">관심아파트</b-nav-item>
             <b-nav-item @click="logout">Logout</b-nav-item>
+            <b-nav-item disabled>
+              {{ userInfo.userId }} <template v-if="userInfo.grade == 'A'">(관리자)</template>
+            </b-nav-item>
           </template>
           <template v-else>
             <b-nav-item to="/login">Login</b-nav-item>
@@ -27,7 +30,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-//
+
 const memberStore = "memberStore";
 
 export default {
@@ -57,5 +60,6 @@ export default {
 <style>
 .header-nav {
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 </style>
